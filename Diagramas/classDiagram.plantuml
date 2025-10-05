@@ -51,7 +51,7 @@
         - enum estadoAtual
     }
 
-    class Relato {
+    class Report {
         - Animal animalComErro
         - List<int> camposComErro
 
@@ -71,7 +71,7 @@
         + void excluirAnimal(Animal animal)
     }
 
-    class RelatoData {
+    class ReportData {
         - ArrayList<Relatos> allRelatos
 
         + ArrayList<Relato> getAllRelatos()
