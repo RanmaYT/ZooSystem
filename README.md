@@ -3,7 +3,8 @@
 
 
 ## Linguagens e tecnologias utilizadas :books:
-- 
+- Java (CLI)
+- PostgreSQL
   
 
 <h3> :hammer: Funcionalidades: </h3>
@@ -24,3 +25,4 @@
 
      
 > Status do Projeto: Em desenvolvimento :warning:
+
