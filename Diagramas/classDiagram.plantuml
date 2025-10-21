@@ -1,104 +1,104 @@
 @startuml Class Diagram
-    ' Sistema de Dados (Classes relacionadas ao tratamento de dados e banco de dados)
+' Sistema de Dados (Classes relacionadas ao tratamento de dados e banco de dados)
 
-    class Database {
-        ' Essa classe vai ser um singleton
+class Database {
+    ' Essa classe vai ser um singleton
 
-        - Database instance
-        
-        + static Database getInstance()
-    }
+    - Database instance
 
-    interface Archivable {
-        + String getArchivableText()
-    }
+    + static Database getInstance()
+}
 
-    ' Sistema de Inputs (Classes responsáveis por coletar e tratar inputs do usuário)
+interface IArchivable {
+    + String getArchivableText()
+}
 
-    class Input {
-        - static Scanner sc
+' Sistema de Inputs (Classes responsáveis por coletar e tratar inputs do usuário)
 
-        + static getIntegerInput()
-        + static getAlphabeticInput()
-    }
+class Input {
+    - static Scanner sc
 
-    ' Sistema Visual (Classes de estilização e escrita no console)
-    class Menu {
-        + static int MenuLogin()
-        + static int AdminMainMenu()
-        + static int VisitorMainMenu()
-    }
+    + static getIntegerInput()
+    + static getAlphabeticInput()
+}
 
-    class TextColor {
-        + static final String red
-        + static final String blue
-        + static final String yellow
-        + static final String green
-    }
+' Sistema Visual (Classes de estilização e escrita no console)
+class Menu {
+    + static int MenuLogin()
+    + static int AdminMainMenu()
+    + static int VisitorMainMenu()
+}
 
-    ' Sistema de Objetos (Classes que irão ser instanciadas e guardadas como objetos)
+class TextColor {
+    + static final String red
+    + static final String blue
+    + static final String yellow
+    + static final String green
+}
 
-    class Animal {
-        ' Eu posso tornar essa classe em uma classe abstrata e separar os bichos em classes 
-        ' concretas sendo suas classes como "Mamifero", "Ave", "Repteis", etc... (Para aplicar o factory method)
+' Sistema de Objetos (Classes que irão ser instanciadas e guardadas como objetos)
 
-        - String nomePopular
-        - String nomeCientifico
-        - String habitat
-        - String localizacaoNoZoologico
-        - String alimentacao
-        - String classe
-        - enum estadoAtual
-    }
+class Animal {
+    ' Eu posso tornar essa classe em uma classe abstrata e separar os bichos em classes
+    ' concretas sendo suas classes como "Mamifero", "Ave", "Repteis", etc... (Para aplicar o factory method)
 
-    class Report {
-        - Animal animalComErro
-        - List<int> camposComErro
+    - String nomePopular
+    - String nomeCientifico
+    - String habitat
+    - String localizacaoNoZoologico
+    - String alimentacao
+    - String classe
+    - enum estadoAtual
+}
 
-        + void excluirRelato()
-    }
+class Report {
+    - Animal animalComErro
+    - List<int> camposComErro
 
-    ' Classes operacionais (Classes que vão fazer operações, utilizando dados como acessórios)
-    ' Talvez eu possa criar uma interface aqui pra abstrair ja que ambos se comportam parecido
-    class AnimalData {
-        - ArrayList<Animal> allAnimals
-        
-        + ArrayList<Animal> getAllAnimals()
-        + void salvarAnimal(Animal animal)
-        + void criarAnimal()
-        + void atualizarAnimal()
-        + void listarAnimais()
-        + void excluirAnimal(Animal animal)
-    }
+    + void excluirRelato()
+}
 
-    class ReportData {
-        - ArrayList<Relatos> allRelatos
+' Classes operacionais (Classes que vão fazer operações, utilizando dados como acessórios)
+' Talvez eu possa criar uma interface aqui pra abstrair ja que ambos se comportam parecido
+class AnimalData {
+    - ArrayList<Animal> allAnimals
 
-        + ArrayList<Relato> getAllRelatos()
-        + void salvarRelato(Relato relato)
-        + void criarRelato()
-        + void listarRelatos()
-        + void excluirRelato(Relato relato)
-    }
+    + ArrayList<Animal> getAllAnimals()
+    + void salvarAnimal(Animal animal)
+    + void criarAnimal()
+    + void atualizarAnimal()
+    + void listarAnimais()
+    + void excluirAnimal(Animal animal)
+}
 
-    ' Relacionamento entre as classes
+class ReportData {
+    - ArrayList<Relatos> allRelatos
 
-    ' Associações 
-    Database -- Archivable
-    Menu -- TextColor
-    
+    + ArrayList<Relato> getAllRelatos()
+    + void salvarRelato(Relato relato)
+    + void criarRelato()
+    + void listarRelatos()
+    + void excluirRelato(Relato relato)
+}
 
-    ' Implementações 
-    Archivable <|.. Animal
-    Archivable <|.. Relato
+' Relacionamento entre as classes
 
-    ' Composição (Uma parte não pode existir sem o todo)
-    Relato *-- Animal
-    
-    ' Agregação (Uma parte pode existir sem o todo)
-    RelatoData o- Relato
-    AnimalData o- Animal
+' Associações
+Database -- IArchivable
+Menu -- TextColor
 
-    ' Herança
+
+' Implementações
+IArchivable <|.. Animal
+IArchivable <|.. Relato
+
+' Composição (Uma parte não pode existir sem o todo)
+Relato *-- Animal
+
+' Agregação (Uma parte pode existir sem o todo)
+RelatoData o- Relato
+AnimalData o- Animal
+
+' Herança
 
 @enduml
