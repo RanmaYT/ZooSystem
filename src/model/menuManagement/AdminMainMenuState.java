@@ -1,6 +1,9 @@
 package model.menuManagement;
 
-public class AdminMainMenuState implements MenuState {
+import controller.Input;
+
+public class AdminMainMenuState implements IMenuState {
+    private Integer userOption;
 
     @Override
     public void writeMenu() {
@@ -15,11 +18,15 @@ public class AdminMainMenuState implements MenuState {
     }
 
     @Override
-    public MenuState changeMenu(int option) {
-        switch (option) {
+    public void getNeededData(Input input){
+        userOption = input.getIntegerInput();
+    }
+
+    @Override
+    public IMenuState changeMenu() {
+        switch (userOption) {
             case 1:
-                System.out.println("Consultar animais - ADM");
-                break;
+                return new AnimalQueryMenuState(this);
             case 2:
                 System.out.println("Adicionar animal");
                 break;

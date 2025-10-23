@@ -1,6 +1,10 @@
 package model.menuManagement;
 
-public class VisitorMainMenuState implements MenuState {
+import controller.Input;
+
+public class VisitorMainMenuState implements IMenuState {
+    private Integer userOption;
+
     @Override
     public void writeMenu(){
         System.out.println("BEM VINDO, VISITANTE!");
@@ -11,17 +15,22 @@ public class VisitorMainMenuState implements MenuState {
     }
 
     @Override
-    public MenuState changeMenu(int option) {
-        switch (option) {
-            case 1:
-                System.out.println("MENU DE CONSULTA ANIMAIS");
-                return null;
-            case 0:
+    public void getNeededData(Input input){
+        userOption = input.getIntegerInput();
+    }
+
+    @Override
+    public IMenuState changeMenu() {
+        return switch (userOption) {
+            case 1 -> new AnimalQueryMenuState(this);
+            case 0 -> {
                 System.out.println("VOLTANDO PARA O MENU ANTERIOR");
-                return new MainMenuState();
-            default:
+                yield new MainMenuState();
+            }
+            default -> {
                 System.out.println("Escolha um valor válido");
-                return null;
-        }
+                yield null;
+            }
+        };
     }
 }

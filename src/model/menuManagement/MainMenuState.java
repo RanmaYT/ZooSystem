@@ -1,6 +1,10 @@
 package model.menuManagement;
 
-public class MainMenuState implements MenuState {
+import controller.Input;
+
+public class MainMenuState implements IMenuState {
+    private Integer userOption;
+
     @Override
     public void writeMenu(){
         System.out.println("ESCOLHA COMO VOCÊ QUER ENTRAR:");
@@ -11,9 +15,14 @@ public class MainMenuState implements MenuState {
     }
 
     @Override
-    public MenuState changeMenu(int input) {
+    public void getNeededData(Input input){
+        userOption = input.getIntegerInput();
+    }
+
+    @Override
+    public IMenuState changeMenu() {
         // Valida o input
-        return switch (input) {
+        return switch (userOption) {
             case 1 ->
                 // Visitante Main Menu
                 new VisitorMainMenuState();
