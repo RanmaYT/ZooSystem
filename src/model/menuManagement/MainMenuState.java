@@ -15,7 +15,7 @@ public class MainMenuState implements IMenuState {
     }
 
     @Override
-    public void getNeededData(Input input){
+    public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
     }
 

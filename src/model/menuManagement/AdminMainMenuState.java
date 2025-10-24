@@ -18,30 +18,25 @@ public class AdminMainMenuState implements IMenuState {
     }
 
     @Override
-    public void getNeededData(Input input){
+    public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
     }
 
     @Override
     public IMenuState changeMenu() {
-        switch (userOption) {
-            case 1:
-                return new AnimalQueryMenuState(this);
-            case 2:
-                System.out.println("Adicionar animal");
-                break;
-            case 3:
+        return switch (userOption) {
+            case 1 -> new AnimalQueryMenuState(this);
+            case 2 -> new AnimalAddMenuState();
+            case 3 -> {
                 System.out.println("Atualizar animal");
-                break;
-            case 4:
-                System.out.println("Excluir animal");
-                break;
-            case 0:
-                return new MainMenuState();
-            default:
+                yield null;
+            }
+            case 4 -> new AnimalDeleteMenuState();
+            case 0 -> new MainMenuState();
+            default -> {
                 System.out.println("Essa não é uma opção válida");
-        }
-
-        return null;
+                yield null;
+            }
+        };
     }
 }

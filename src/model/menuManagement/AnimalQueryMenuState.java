@@ -5,6 +5,7 @@ import model.AnimalData;
 
 public class AnimalQueryMenuState implements IMenuState{
     private Integer userOption;
+    private Integer animalIndex;
     private IMenuState lastMenu;
     private AnimalData animalData = new AnimalData();
 
@@ -14,18 +15,15 @@ public class AnimalQueryMenuState implements IMenuState{
 
     @Override
     public void writeMenu(){
-        // Verificar se há animais cadastrados
+        // TODO: CORRIGIR BUG QUE AO VOLTAR DO MENU RELATO ELE FICA REPETINDO ESSE MENU
 
+
+        // Verificar se há animais cadastrados
         if(animalData.hasAnimal()) {
             System.out.println("ESCOLHA UM ANIMAL:");
 
             // Listar todos os animais e seus índices
-            // 1. Pega o nome popular de cada animal cadastrado
-            for(int i = 0; i < animalData.getAnimaisCadastrado().size(); i++) {
-                // Forma uma string contendo o índice do animal+1 e o nome popular dele
-                String animalString = String.format("[%d] - %s", i+1, animalData.getAnimaisCadastrado().get(i).getPopularName());
-                System.out.println(animalString);
-            }
+            animalData.listAllAnimals();
 
             // Opção para voltar
             System.out.println("[0] - Voltar");
@@ -38,32 +36,50 @@ public class AnimalQueryMenuState implements IMenuState{
     }
 
     @Override
-    public void getNeededData(Input input){
+    public void doMenuOperations(Input input){
         // Pular esse pedido caso não hajam animais cadastrados
-        if(animalData.hasAnimal()) {userOption = input.getIntegerInput();}
+        if(animalData.hasAnimal()) {
+            animalIndex = input.getIntegerInput();
+            // TODO: CORRIGIR ESSE BUG AQUI OU MELHORAR A ABORDAGEM
+            if(animalIndex == 0) {
+                userOption = 0;
+                return;
+            }
 
-        // Essa parte aqui eu vou abstrair
-        boolean displayInfo = userOption != null && (userOption >= 1 && userOption <= animalData.getAnimaisCadastrado().size());
-        if(displayInfo) {
+            animalIndex--;
+
             // Mostra as informações do animal
-            animalData.displayAnimalInfo(userOption - 1);
+            boolean displayedInfos = animalData.displayAnimalInfo(animalIndex);
 
-            // Pergunta se o usuário quer continuar pegando animais
-            System.out.println("Escolha uma opção: ");
-            System.out.println("[1] Voltar ao menu anterior");
-            System.out.println("[2] Relatar erro");
-            System.out.print("|| ");
-            userOption = input.getIntegerInput();
-
+            // Verifica se as informações são veridícas
+            if(displayedInfos) {
+                // Escreve um menu perguntando se o usuário quer voltar ou relatar um erro.
+                System.out.println("Escolha uma opção: ");
+                System.out.println("[1] Continuar buscando animais");
+                System.out.println("[2] Relatar erro");
+                System.out.println("[0] Voltar ao menu principal");
+                System.out.print("|| ");
+                userOption = input.getIntegerInput();
+            } else {
+                System.out.println("Como informações não foram mostradas, reiniciando o menu");
+                userOption = 1;
+            }
         }
+
     }
 
     @Override
     public IMenuState changeMenu(){
+        if(userOption == null) { return null;}
+
         return switch (userOption) {
             case 0 -> lastMenu;
-            default -> null;
+            case 1 -> new AnimalQueryMenuState(lastMenu);
+            case 2 -> new ReportMenuState(animalData.getAnimalFromList(animalIndex), this);
+            default -> {
+                System.out.println("Valor inválido, voltando ao menu de busca!");
+                yield null;
+            }
         };
     }
-
 }

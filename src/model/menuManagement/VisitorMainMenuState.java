@@ -15,7 +15,7 @@ public class VisitorMainMenuState implements IMenuState {
     }
 
     @Override
-    public void getNeededData(Input input){
+    public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
     }
 
@@ -23,10 +23,7 @@ public class VisitorMainMenuState implements IMenuState {
     public IMenuState changeMenu() {
         return switch (userOption) {
             case 1 -> new AnimalQueryMenuState(this);
-            case 0 -> {
-                System.out.println("VOLTANDO PARA O MENU ANTERIOR");
-                yield new MainMenuState();
-            }
+            case 0 -> new MainMenuState();
             default -> {
                 System.out.println("Escolha um valor válido");
                 yield null;

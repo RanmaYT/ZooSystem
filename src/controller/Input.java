@@ -32,10 +32,13 @@ public class Input {
                 // Pegar o input
                 input = sc.nextInt();
 
+                // Limpar o input
+                sc.nextLine();
+
                 return input;
             } catch(InputMismatchException e) {
                 // Limpa o input em caso de erro, e printa uma mensagem
-                sc.next();
+                sc.nextLine();
                 System.out.println("Esse campo só aceita valores inteiros");
                 return -1;
             }
