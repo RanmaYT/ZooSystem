@@ -4,6 +4,7 @@ import controller.Input;
 
 public class VisitorMainMenuState implements IMenuState {
     private Integer userOption;
+    private Integer nextMenuValue;
 
     @Override
     public void writeMenu(){
@@ -17,15 +18,20 @@ public class VisitorMainMenuState implements IMenuState {
     @Override
     public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
+        nextMenuValue = userOption;
     }
 
     @Override
     public IMenuState changeMenu() {
-        return switch (userOption) {
+        return switch (nextMenuValue) {
             case 1 -> new AnimalQueryMenuState(this);
             case 0 -> new MainMenuState();
             default -> {
-                System.out.println("Escolha um valor válido");
+                System.out.println("Escolha um valor válido, reiniciando o menu!");
+
+                userOption = null;
+                nextMenuValue = null;
+
                 yield null;
             }
         };

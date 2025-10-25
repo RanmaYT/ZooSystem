@@ -4,6 +4,7 @@ import controller.Input;
 
 public class AdminMainMenuState implements IMenuState {
     private Integer userOption;
+    private Integer nextMenuValue;
 
     @Override
     public void writeMenu() {
@@ -20,11 +21,12 @@ public class AdminMainMenuState implements IMenuState {
     @Override
     public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
+        nextMenuValue = userOption;
     }
 
     @Override
     public IMenuState changeMenu() {
-        return switch (userOption) {
+        return switch (nextMenuValue) {
             case 1 -> new AnimalQueryMenuState(this);
             case 2 -> new AnimalAddMenuState();
             case 3 -> {
@@ -34,7 +36,11 @@ public class AdminMainMenuState implements IMenuState {
             case 4 -> new AnimalDeleteMenuState();
             case 0 -> new MainMenuState();
             default -> {
-                System.out.println("Essa não é uma opção válida");
+                System.out.println("Essa não é uma opção válida, reiniciando menu!");
+
+                userOption = null;
+                nextMenuValue = null;
+
                 yield null;
             }
         };

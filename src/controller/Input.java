@@ -7,7 +7,7 @@ public class Input {
     private Scanner sc = new Scanner(System.in);
 
     public String getAlphaInput(){
-        // Obs: essa função só coleta inputs alfabéticos, sem virgulas e outras coisas
+        // Obs: essa função só coleta inputs formados apenas por letras e espaços
         boolean hasOnlyLetters = false;
         String input = "";
 
@@ -40,6 +40,8 @@ public class Input {
                 // Limpa o input em caso de erro, e printa uma mensagem
                 sc.nextLine();
                 System.out.println("Esse campo só aceita valores inteiros");
+
+                // Retorna um valor inválido para os contextos
                 return -1;
             }
         }

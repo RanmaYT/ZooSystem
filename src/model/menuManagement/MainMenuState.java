@@ -4,6 +4,7 @@ import controller.Input;
 
 public class MainMenuState implements IMenuState {
     private Integer userOption;
+    private Integer nextMenuValue;
 
     @Override
     public void writeMenu(){
@@ -17,12 +18,13 @@ public class MainMenuState implements IMenuState {
     @Override
     public void doMenuOperations(Input input){
         userOption = input.getIntegerInput();
+        nextMenuValue = userOption;
     }
 
     @Override
     public IMenuState changeMenu() {
         // Valida o input
-        return switch (userOption) {
+        return switch (nextMenuValue) {
             case 1 ->
                 // Visitante Main Menu
                 new VisitorMainMenuState();
@@ -30,6 +32,7 @@ public class MainMenuState implements IMenuState {
                 // Admin Main Menu
                 new AdminMainMenuState();
             case 0 -> {
+                // Fechando a aplicação
                 System.out.println("Saindo...");
                 System.exit(0);
                 yield null;
@@ -37,6 +40,10 @@ public class MainMenuState implements IMenuState {
             default -> {
                 // Valores inválidos
                 System.out.println("Digite um valor válido");
+
+                userOption = null;
+                nextMenuValue = null;
+
                 yield null;
             }
         };

@@ -61,7 +61,7 @@ public class AnimalData {
         String habitat = "";
         String locationInZoo = "";
 
-        // Coletar informações sobre o animais
+        // Coletar informações sobre o animais (TODO: Colocar um loop enquanto os valores certos não forem colocados)
         System.out.print("Nome popular: ");
         popularName = popularName.isBlank() ? input.getAlphaInput() : popularName;
 
@@ -74,13 +74,13 @@ public class AnimalData {
         System.out.print("Localização no zoológico: ");
         locationInZoo = locationInZoo.isBlank() ? input.getAlphaInput() : locationInZoo;
 
-        // Criar o novo animal
+        // Criar o objeto do novo animal
         Animal animal = new Animal(popularName, cientificName, habitat, locationInZoo);
 
         // Registra o animal
         registerAnimal(animal);
 
-        System.out.println("Animal cadastrado com sucesso");
+        System.out.println("Animal cadastrado com sucesso\n");
     }
 
     public boolean deleteAnimal(Animal animal) {

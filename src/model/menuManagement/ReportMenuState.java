@@ -4,9 +4,10 @@ import controller.Input;
 import model.Animal;
 
 public class ReportMenuState implements IMenuState{
-    Animal reportedAnimal;
-    IMenuState lastMenu;
-    Integer userOption;
+    private Animal reportedAnimal;
+    private IMenuState lastMenu;
+    private Integer userOption;
+    private Integer nextMenuValue;
 
     public ReportMenuState(Animal reportedAnimal, IMenuState lastMenu) {
         this.reportedAnimal = reportedAnimal;
@@ -22,11 +23,12 @@ public class ReportMenuState implements IMenuState{
     @Override
     public void doMenuOperations(Input input) {
         userOption = input.getIntegerInput();
+        nextMenuValue = userOption;
     }
 
     @Override
     public IMenuState changeMenu() {
-        return switch(userOption) {
+        return switch(nextMenuValue) {
             case 0 -> lastMenu;
             default -> null;
         };
