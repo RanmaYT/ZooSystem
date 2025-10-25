@@ -13,15 +13,15 @@ public class AnimalDeleteMenuState implements IMenuState{
     public void writeMenu() {
         // Verificar se há animais cadastrados
         if(animalData.hasAnimal()) {
-            System.out.println("QUAL ANIMAL VOCÊ QUER EXCLUIR:");
-            System.out.println("Obs: essa ação é irreversível");
+            System.out.println("=============== Escolha um animal para excluir =================");
+            System.out.println("                (Obs: essa ação é irreversível)                 ");
 
             // Listar todos os animais e seus índices
             animalData.listAllAnimals();
 
             // Opção para voltar
-            System.out.println("[0] - Voltar");
-            System.out.print("|| ");
+            System.out.println("[0] <- Voltar");
+            System.out.print("---> ");
         }
         else {
             System.out.println("Não há animais cadastrados, voltando ao menu anterior");
@@ -41,6 +41,7 @@ public class AnimalDeleteMenuState implements IMenuState{
 
                 deleteAnimal(animalIndex);
             }
+            nextMenuValue = userOption;
         }
     }
 
@@ -67,9 +68,10 @@ public class AnimalDeleteMenuState implements IMenuState{
 
         // Perguntar se ele quer continuar deletando animais, caso haja algum
         if(animalData.hasAnimal()) {
-            System.out.println("Deseja continuar deletando animais: ");
-            System.out.println("[1] Sim");
-            System.out.println("[0] Voltar ao menu principal");
+            System.out.println("================= Continuar deletando? ================ ");
+            System.out.println("                  [1] Sim                               ");
+            System.out.println("                  [0] Voltar ao menu principal          ");
+            System.out.print("                  ---> ");
 
             Input input = new Input();
             userOption = input.getIntegerInput();
