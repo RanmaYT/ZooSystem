@@ -103,4 +103,18 @@ public class AnimalData {
 
         return deleteAnimal(animal);
     }
+
+    public void updateAnimal(int index){
+        Animal animal = getAnimalFromList(index);
+
+        updateAnimal(animal);
+    }
+
+    public void updateAnimal(Animal animal){
+        // Coletar os campos que o usuário quer mudar
+
+        // Coletar o que ele quer colocar nesses campos
+
+        // Criar um novo objeto com os parâmetros opcionais e os mesmo dados do anterior
+    }
 }

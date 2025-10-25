@@ -56,7 +56,8 @@ public class AnimalQueryMenuState implements IMenuState{
 
                 nextMenuValue = userOption;
             }
-            else { nextMenuValue = 0; }
+
+            nextMenuValue = userOption;
         }
     }
 

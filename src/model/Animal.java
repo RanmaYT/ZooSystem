@@ -14,6 +14,10 @@ public class Animal implements IArchivable {
         this.locationInZoo = locationInZoo;
     }
 
+    public void updateAllFields(String popularName, String cientificName, String habitat, String locationInZoo){
+
+    }
+
     public String getHabitat() {
         return habitat;
     }
@@ -30,20 +34,20 @@ public class Animal implements IArchivable {
         this.locationInZoo = locationInZoo;
     }
 
-    public void setPopularName(String popularName){
-        this.popularName = popularName;
-    }
-
     public String getPopularName(){
         return popularName;
     }
 
-    public void setCientificName(String cientificName){
-        this.cientificName = cientificName;
+    public void setPopularName(String popularName){
+        this.popularName = popularName;
     }
 
     public String getCientificName(){
         return cientificName;
+    }
+
+    public void setCientificName(String cientificName){
+        this.cientificName = cientificName;
     }
 
     @Override
