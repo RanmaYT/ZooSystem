@@ -8,11 +8,11 @@ public class MainMenuState implements IMenuState {
 
     @Override
     public void writeMenu(){
-        System.out.println("ESCOLHA COMO VOCÊ QUER ENTRAR:");
-        System.out.println("[1] Visitante");
-        System.out.println("[2] Administrador (requer senha)");
-        System.out.println("[0] Sair");
-        System.out.print("|| ");
+        System.out.println("================== BEM VINDO, ESCOLHA COMO ENTRAR: ==================");
+        System.out.println("                          [1] Visitante");
+        System.out.println("                          [2] Administrador (requer senha)");
+        System.out.println("                          [0] <- Sair");
+        System.out.print("                          ---> ");
     }
 
     @Override

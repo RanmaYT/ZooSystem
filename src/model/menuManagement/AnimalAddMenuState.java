@@ -10,10 +10,10 @@ public class AnimalAddMenuState implements IMenuState{
 
     @Override
     public void writeMenu() {
-        System.out.println("MENU DE ADICIONAR ANIMAIS");
-        System.out.println("[1] Iniciar processo de adição de informações");
-        System.out.println("[0] Voltar ao menu principal");
-        System.out.print("|| ");
+        System.out.println("==================== MENU DE ADICIONAR ANIMAIS ====================");
+        System.out.println("           [1] Adicionar animal                                    ");
+        System.out.println("           [0] Voltar ao menu principal                            ");
+        System.out.print("           ---> ");
     }
 
     @Override

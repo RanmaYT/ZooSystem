@@ -53,10 +53,7 @@ public class AnimalQueryMenuState implements IMenuState{
                 System.out.println("[0] Voltar ao menu principal");
                 System.out.print("|| ");
                 userOption = input.getIntegerInput();
-
-                nextMenuValue = userOption;
             }
-
             nextMenuValue = userOption;
         }
     }
