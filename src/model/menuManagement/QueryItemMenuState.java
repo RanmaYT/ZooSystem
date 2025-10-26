@@ -55,7 +55,10 @@ public class QueryItemMenuState implements IMenuState{
                 System.out.println("Você deseja continuar buscando itens: ");
                 System.out.println("[1] Sim");
                 System.out.println("[0] Voltar ao menu anterior");
+                userOption = input.getIntegerInput();
             }
+
+            nextMenuValue = userOption;
         }
     }
 

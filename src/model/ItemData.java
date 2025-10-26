@@ -1,7 +1,6 @@
 package model;
 
 import controller.Input;
-
 import java.util.ArrayList;
 
 public interface ItemData<T> {
