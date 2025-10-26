@@ -25,6 +25,14 @@ public class Input {
         return input;
     }
 
+    public String getStringInput(){
+        String input = "";
+
+        input = sc.nextLine();
+
+        return input;
+    }
+
     public Integer getIntegerInput(){
         while(true) {
             try {

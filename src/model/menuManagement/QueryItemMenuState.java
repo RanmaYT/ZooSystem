@@ -46,7 +46,7 @@ public class QueryItemMenuState implements IMenuState{
 
             // Verifica se o input é o de um item
             if(userOption > 0 && userOption <= itemData.getItensList().size()) {
-                itemIndex = userOption--;
+                itemIndex = userOption - 1;
 
                 // Mostra as informações sobre o item
                 itemData.displayItemInfo(itemIndex);

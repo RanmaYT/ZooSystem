@@ -8,6 +8,7 @@ public interface ItemData<T> {
     public void listAllItens();
     public void createItem(Input input);
     public void registerItem(T item);
+    public void updateItem(int itemIndex, Input input);
     public void deleteItem(int itemIndex);
     public void displayItemInfo(int itemIndex);
     public boolean hasItem();

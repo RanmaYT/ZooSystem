@@ -20,18 +20,26 @@ public class AnimalData implements ItemData<Animal>{
         String habitat = "";
         String locationInZoo = "";
 
-        // Coletar informações sobre o animais (TODO: Colocar um loop enquanto os valores certos não forem colocados)
-        System.out.print("Nome popular: ");
-        popularName = popularName.isBlank() ? input.getAlphaInput() : popularName;
+        // Coletar informações sobre o animais
+        while(popularName.isBlank()) {
+            System.out.print("Nome popular: ");
+            popularName = input.getAlphaInput();
+        }
 
-        System.out.print("Nome científico: ");
-        cientificName = cientificName.isBlank() ? input.getAlphaInput() : cientificName;
+        while(cientificName.isBlank()) {
+            System.out.print("Nome científico: ");
+            cientificName = input.getAlphaInput();
+        }
 
-        System.out.print("Habitat: ");
-        habitat = habitat.isBlank() ? input.getAlphaInput() : habitat;
+        while(habitat.isBlank()) {
+            System.out.print("Habitat: ");
+            habitat = input.getAlphaInput();
+        }
 
-        System.out.print("Localização no zoológico: ");
-        locationInZoo = locationInZoo.isBlank() ? input.getAlphaInput() : locationInZoo;
+        while(locationInZoo.isBlank()) {
+            System.out.print("Localização no zoológico: ");
+            locationInZoo = input.getAlphaInput();
+        }
 
         // Criar o objeto do novo animal
         Animal animal = new Animal(popularName, cientificName, habitat, locationInZoo);
@@ -53,6 +61,19 @@ public class AnimalData implements ItemData<Animal>{
         registedAnimals.add(animal);
 
         // Registra o animal no banco de dados
+    }
+
+    @Override
+    public void updateItem(int itemIndex, Input input){
+        // Pegar o animal que vai ser atualizado
+        Animal animal = getItemFromList(itemIndex);
+        System.out.println("Atualize os campos do animal:");
+        System.out.println("Obs: campos que não serão atualizados coloque um 0");
+
+        // Delega o processo de atualização pro próprio objeto
+        animal.update(input);
+
+        System.out.println("Atualização foi um sucesso!");
     }
 
     @Override

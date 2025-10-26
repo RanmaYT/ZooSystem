@@ -3,14 +3,14 @@ package model.menuManagement;
 import controller.Input;
 import model.ItemData;
 
-public class DeleteItemMenuState implements IMenuState{
-    private ItemData itemData;
+public class UpdateItemMenuState implements IMenuState {
     private IMenuState lastMenu;
+    private ItemData itemData;
     private Integer userOption;
     private Integer itemIndex;
     private Integer nextMenuValue;
 
-    public DeleteItemMenuState(ItemData itemData, IMenuState lastMenu) {
+    public UpdateItemMenuState(ItemData itemData, IMenuState lastMenu){
         this.itemData = itemData;
         this.lastMenu = lastMenu;
     }
@@ -20,8 +20,7 @@ public class DeleteItemMenuState implements IMenuState{
         // O menu escrito vai depender se temos itens cadastrados ou não
         if(itemData.hasItem()) {
             // Escreve o menu normal
-            System.out.println(String.format("=============== Escolha um %s para excluir =================", itemData.getItemName()));
-            System.out.println("                (Obs: essa ação é irreversível)                 ");
+            System.out.println(String.format("=============== Escolha um %s para atualizar =================", itemData.getItemName()));
 
             // Lista todos os itens cadastrados
             itemData.listAllItens();
@@ -44,12 +43,21 @@ public class DeleteItemMenuState implements IMenuState{
         if(itemData.hasItem()) {
             userOption = input.getIntegerInput();
 
-            // Verifica se a opção é o índice de um item
-            if(userOption >= 1 && userOption < itemData.getItensList().size()) {
+            // Verifica se o input é o de um item
+            if(userOption > 0 && userOption <= itemData.getItensList().size()) {
                 itemIndex = userOption - 1;
 
-                deleteItem(itemIndex);
+                // Atualiza as informações do usuário
+                itemData.updateItem(itemIndex, input);
+
+                // Perguntar se o usuário quer continuar buscando animais ou não
+                System.out.println("Você deseja continuar atualizando itens: ");
+                System.out.println("[1] Sim");
+                System.out.println("[0] Voltar ao menu anterior");
+                userOption = input.getIntegerInput();
             }
+
+            nextMenuValue = userOption;
         }
     }
 
@@ -61,7 +69,6 @@ public class DeleteItemMenuState implements IMenuState{
             default -> {
                 System.out.println("Valor inválido, reiniciando o menu!");
 
-                // Resetar os campos
                 userOption = null;
                 itemIndex = null;
                 nextMenuValue = null;
@@ -69,26 +76,5 @@ public class DeleteItemMenuState implements IMenuState{
                 yield null;
             }
         };
-    }
-
-    public void deleteItem(int itemIndex){
-        itemData.deleteItem(itemIndex);
-
-        // Perguntar se ele quer continuar deletando animais, caso haja algum
-        if(itemData.hasItem()) {
-            System.out.println("================= Continuar deletando? ================ ");
-            System.out.println("                  [1] Sim                               ");
-            System.out.println("                  [0] Voltar ao menu principal          ");
-            System.out.print("                  ---> ");
-
-            Input input = new Input();
-            userOption = input.getIntegerInput();
-
-            nextMenuValue = userOption;
-        }
-        else {
-            System.out.println("Como o último item foi deletado, voltando ao menu principal");
-            nextMenuValue = 0;
-        }
     }
 }

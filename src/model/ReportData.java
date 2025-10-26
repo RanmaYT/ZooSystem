@@ -29,6 +29,11 @@ public class ReportData implements ItemData<Report>{
     }
 
     @Override
+    public void updateItem(int itemIndex, Input input){
+
+    }
+
+    @Override
     public void deleteItem(int itemIndex) {
 
     }

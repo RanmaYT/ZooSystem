@@ -31,8 +31,8 @@ public class AdminMainMenuState implements IMenuState {
         return switch (nextMenuValue) {
             case 1 -> new QueryItemMenuState(new AnimalData(),this);
             case 2 -> new CreateItemMenuState(new AnimalData(), this);
-            case 3 -> new AnimalUpdateMenuState();
-            case 4 -> new DeleteItemMenuState(new AnimalData());
+            case 3 -> new UpdateItemMenuState(new AnimalData(), this);
+            case 4 -> new DeleteItemMenuState(new AnimalData(), this);
             case 0 -> new MainMenuState();
             default -> {
                 System.out.println("Essa não é uma opção válida, reiniciando menu!");
