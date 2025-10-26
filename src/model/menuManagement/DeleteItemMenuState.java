@@ -1,47 +1,53 @@
 package model.menuManagement;
 
 import controller.Input;
-import model.AnimalData;
+import model.ItemData;
 
-public class AnimalDeleteMenuState implements IMenuState{
-    private AnimalData animalData = new AnimalData();
+public class DeleteItemMenuState implements IMenuState{
+    private ItemData itemData;
     private Integer userOption;
-    private Integer animalIndex;
+    private Integer itemIndex;
     private Integer nextMenuValue;
+
+    public DeleteItemMenuState(ItemData itemData) {
+        this.itemData = itemData;
+    }
 
     @Override
     public void writeMenu() {
-        // Verificar se há animais cadastrados
-        if(animalData.hasAnimal()) {
-            System.out.println("=============== Escolha um animal para excluir =================");
+        // O menu escrito vai depender se temos itens cadastrados ou não
+        if(itemData.hasItem()) {
+            // Escreve o menu normal
+            System.out.println(String.format("=============== Escolha um %s para excluir =================", itemData.getItemName()));
             System.out.println("                (Obs: essa ação é irreversível)                 ");
 
-            // Listar todos os animais e seus índices
-            animalData.listAllAnimals();
+            // Lista todos os itens cadastrados
+            itemData.listAllItens();
 
-            // Opção para voltar
+            // Opção pra voltar
             System.out.println("[0] <- Voltar");
             System.out.print("---> ");
+
         }
-        else {
-            System.out.println("Não há animais cadastrados, voltando ao menu anterior");
+        else{
+            // Fala que não tem itens cadastrados e retorna pro menu anterior
+            System.out.println(String.format("Não há %s cadastrados, voltando ao menu anterior", itemData.getItemName()));
             nextMenuValue = 0;
         }
     }
 
     @Override
     public void doMenuOperations(Input input) {
-        // Pula esse bloco caso não haja animais;
-        if(animalData.hasAnimal()) {
+        // Pula esse bloco caso não hajam itens cadastrados
+        if(itemData.hasItem()) {
             userOption = input.getIntegerInput();
 
-            // Deleta o animal se o usuário tiver escolhido um input válido
-            if(userOption > 0 && userOption <= animalData.getRegistedAnimals().size()) {
-                animalIndex = userOption - 1;
+            // Verifica se a opção é o índice de um item
+            if(userOption >= 1 && userOption < itemData.getItensList().size()) {
+                itemIndex = userOption--;
 
-                deleteAnimal(animalIndex);
+                deleteItem(itemIndex);
             }
-            nextMenuValue = userOption;
         }
     }
 
@@ -55,7 +61,7 @@ public class AnimalDeleteMenuState implements IMenuState{
 
                 // Resetar os campos
                 userOption = null;
-                animalIndex = null;
+                itemIndex = null;
                 nextMenuValue = null;
 
                 yield null;
@@ -63,11 +69,11 @@ public class AnimalDeleteMenuState implements IMenuState{
         };
     }
 
-    public void deleteAnimal(int animalIndex) {
-        animalData.deleteAnimal(animalIndex);
+    public void deleteItem(int itemIndex){
+        itemData.deleteItem(itemIndex);
 
         // Perguntar se ele quer continuar deletando animais, caso haja algum
-        if(animalData.hasAnimal()) {
+        if(itemData.hasItem()) {
             System.out.println("================= Continuar deletando? ================ ");
             System.out.println("                  [1] Sim                               ");
             System.out.println("                  [0] Voltar ao menu principal          ");
@@ -79,7 +85,7 @@ public class AnimalDeleteMenuState implements IMenuState{
             nextMenuValue = userOption;
         }
         else {
-            System.out.println("Como o último animal foi deletado, voltando ao menu principal");
+            System.out.println("Como o último item foi deletado, voltando ao menu principal");
             nextMenuValue = 0;
         }
     }

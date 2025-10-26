@@ -1,6 +1,8 @@
 package model.menuManagement;
 
 import controller.Input;
+import model.AnimalData;
+import model.ReportData;
 
 public class VisitorMainMenuState implements IMenuState {
     private Integer userOption;
@@ -11,6 +13,7 @@ public class VisitorMainMenuState implements IMenuState {
         System.out.println("================= BEM VINDO, VISITANTE!! =================");
         System.out.println("                    Escolha uma opção:                      ");
         System.out.println("                  [1] Consultar animais");
+        System.out.println("                  [2] Criar relato de erro");
         System.out.println("                  [0] Voltar");
         System.out.print("                 ---> ");
     }
@@ -24,8 +27,9 @@ public class VisitorMainMenuState implements IMenuState {
     @Override
     public IMenuState changeMenu() {
         return switch (nextMenuValue) {
-            case 1 -> new AnimalQueryMenuState(this);
             case 0 -> new MainMenuState();
+            case 1 -> new QueryItemMenuState(new AnimalData(), this);
+            case 2 -> new CreateItemMenuState(new ReportData(), this);
             default -> {
                 System.out.println("Escolha um valor válido, reiniciando o menu!");
 

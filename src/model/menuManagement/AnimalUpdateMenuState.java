@@ -12,11 +12,11 @@ public class AnimalUpdateMenuState implements IMenuState {
     @Override
     public void writeMenu() {
         // Verificar se há animais cadastrados
-        if(animalData.hasAnimal()) {
+        if(animalData.hasItem()) {
             System.out.println("QUAL ANIMAL VOCÊ QUER ATUALIZAR:");
 
             // Listar todos os animais e seus índices
-            animalData.listAllAnimals();
+            animalData.listAllItens();
 
             // Opção para voltar
             System.out.println("[0] - Voltar");
@@ -31,14 +31,12 @@ public class AnimalUpdateMenuState implements IMenuState {
     @Override
     public void doMenuOperations(Input input) {
         // Pula esse bloco caso não haja animais;
-        if(animalData.hasAnimal()) {
+        if(animalData.hasItem()) {
             userOption = input.getIntegerInput();
 
             // Atualiza o animal se o usuário tiver escolhido um input válido
-            if(userOption > 0 && userOption <= animalData.getRegistedAnimals().size()) {
+            if(userOption > 0 && userOption <= animalData.getItensList().size()) {
                 animalIndex = userOption - 1;
-
-                updateAnimal(animalIndex);
             }
         }
     }
@@ -59,9 +57,5 @@ public class AnimalUpdateMenuState implements IMenuState {
                 yield null;
             }
         };
-    }
-
-    public void updateAnimal(int index) {
-        animalData.updateAnimal(index);
     }
 }

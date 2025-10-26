@@ -1,6 +1,7 @@
 package model.menuManagement;
 
 import controller.Input;
+import model.AnimalData;
 
 public class AdminMainMenuState implements IMenuState {
     private Integer userOption;
@@ -14,6 +15,7 @@ public class AdminMainMenuState implements IMenuState {
         System.out.println("                 [2] Adicionar animal              ");
         System.out.println("                 [3] Atualizar animal              ");
         System.out.println("                 [4] Excluir animal                ");
+        System.out.println("                 [5] Verificar relatos                ");
         System.out.println("                 [0] <- Voltar                     ");
         System.out.print("                 ---> ");
     }
@@ -27,13 +29,10 @@ public class AdminMainMenuState implements IMenuState {
     @Override
     public IMenuState changeMenu() {
         return switch (nextMenuValue) {
-            case 1 -> new AnimalQueryMenuState(this);
-            case 2 -> new AnimalAddMenuState();
-            case 3 -> {
-                System.out.println("Atualizar animal");
-                yield null;
-            }
-            case 4 -> new AnimalDeleteMenuState();
+            case 1 -> new QueryItemMenuState(new AnimalData(),this);
+            case 2 -> new CreateItemMenuState(new AnimalData(), this);
+            case 3 -> new AnimalUpdateMenuState();
+            case 4 -> new DeleteItemMenuState(new AnimalData());
             case 0 -> new MainMenuState();
             default -> {
                 System.out.println("Essa não é uma opção válida, reiniciando menu!");

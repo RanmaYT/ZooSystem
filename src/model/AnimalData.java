@@ -3,58 +3,17 @@ package model;
 import java.util.ArrayList;
 import controller.Input;
 
-public class AnimalData {
+public class AnimalData implements ItemData<Animal>{
     private static ArrayList<Animal> registedAnimals = new ArrayList<>();
+    private static final String itemName = "animal";
 
-    public void loadRegistedAnimals(){
-        // TODO: Carregar os animais registrados quando iniciar a aplicação
-    }
-
-    public ArrayList<Animal> getRegistedAnimals() {
+    @Override
+    public ArrayList<Animal> getItensList() {
         return registedAnimals;
     }
 
-    public Animal getAnimalFromList(int index) {
-        try { return registedAnimals.get(index); }
-        catch(IndexOutOfBoundsException e) {
-            System.out.println("Índice invalido");
-            return null;
-        }
-    }
-
-    public boolean hasAnimal(){
-        return !registedAnimals.isEmpty();
-    }
-
-    public void registerAnimal(Animal animal){
-        // Registra o animal na lista
-        registedAnimals.add(animal);
-
-        // Registra o animal no banco de dados
-    }
-
-    public void listAllAnimals(){
-        for(int i = 0; i < registedAnimals.size(); i++) {
-            // Forma uma string contendo o índice do animal+1 e o nome popular dele
-            String animalString = String.format("[%d] - %s", i+1, registedAnimals.get(i).getPopularName());
-            System.out.println(animalString);
-        }
-    }
-
-    public boolean displayAnimalInfo(int animalIndex) {
-        // Pegar o animal naquele índice
-        Animal animal = getAnimalFromList(animalIndex);
-        if(animal == null) {
-            System.out.println("Falha ao mostrar informações!");
-            return false;
-        }
-
-        System.out.println("Mostrando informações sobre: " + animal.getPopularName());
-        System.out.println(animal);
-        return true;
-    }
-
-    public void createAnimal(Input input){
+    @Override
+    public void createItem(Input input){
         // Definir as variáveis que serão criadas
         String popularName = "";
         String cientificName = "";
@@ -78,9 +37,70 @@ public class AnimalData {
         Animal animal = new Animal(popularName, cientificName, habitat, locationInZoo);
 
         // Registra o animal
-        registerAnimal(animal);
+        registerItem(animal);
 
         System.out.println("Animal cadastrado com sucesso\n");
+    }
+
+    @Override
+    public void loadItens(){
+        // TODO: Carregar os animais registrados quando iniciar a aplicação
+    }
+
+    @Override
+    public void registerItem(Animal animal){
+        // Registra o animal na lista
+        registedAnimals.add(animal);
+
+        // Registra o animal no banco de dados
+    }
+
+    @Override
+    public void deleteItem(int index) {
+        Animal animal = getItemFromList(index);
+
+        deleteAnimal(animal);
+    }
+
+    @Override
+    public void displayItemInfo(int animalIndex) {
+        // Pegar o animal naquele índice
+        Animal animal = getItemFromList(animalIndex);
+
+        if(animal == null) {
+            System.out.println("Falha ao mostrar informações!");
+        }
+
+        System.out.println("Mostrando informações sobre: " + animal.getPopularName());
+        System.out.println(animal);
+    }
+
+    @Override
+    public void listAllItens(){
+        for(int i = 0; i < registedAnimals.size(); i++) {
+            // Forma uma string contendo o índice do animal+1 e o nome popular dele
+            String animalString = String.format("[%d] - %s", i+1, registedAnimals.get(i).getPopularName());
+            System.out.println(animalString);
+        }
+    }
+
+    @Override
+    public String getItemName(){
+        return itemName;
+    }
+
+    @Override
+    public Animal getItemFromList(int index) {
+        try { return registedAnimals.get(index); }
+        catch(IndexOutOfBoundsException e) {
+            System.out.println("Índice invalido");
+            return null;
+        }
+    }
+
+    @Override
+    public boolean hasItem(){
+        return !registedAnimals.isEmpty();
     }
 
     public boolean deleteAnimal(Animal animal) {
@@ -96,25 +116,5 @@ public class AnimalData {
 
         System.out.println(animal.getPopularName() + " foi deletado com sucesso");
         return true;
-    }
-
-    public boolean deleteAnimal(int index) {
-        Animal animal = getAnimalFromList(index);
-
-        return deleteAnimal(animal);
-    }
-
-    public void updateAnimal(int index){
-        Animal animal = getAnimalFromList(index);
-
-        updateAnimal(animal);
-    }
-
-    public void updateAnimal(Animal animal){
-        // Coletar os campos que o usuário quer mudar
-
-        // Coletar o que ele quer colocar nesses campos
-
-        // Criar um novo objeto com os parâmetros opcionais e os mesmo dados do anterior
     }
 }
