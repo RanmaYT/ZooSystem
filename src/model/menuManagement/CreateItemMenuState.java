@@ -30,7 +30,13 @@ public class CreateItemMenuState implements IMenuState{
 
         // Repete o processo de criação enquanto o usuário digitar 1
         while(userOption == 1) {
-            itemData.createItem(input);
+            boolean createdItem = itemData.createItem(input);
+
+            if(!createdItem) {
+                System.out.printf("Não é possível criar um %s, voltando ao menu anterior%n", itemData.getItemName());
+                nextMenuValue = 0;
+                return;
+            }
 
             // Pergunta se o usuário quer continuar criando itens
             System.out.println(String.format("Deseja continuar adicionando %s: ", itemData.getItemName()));

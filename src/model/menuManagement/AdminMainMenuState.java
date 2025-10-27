@@ -2,6 +2,7 @@ package model.menuManagement;
 
 import controller.Input;
 import model.AnimalData;
+import model.ReportData;
 import view.TextColor;
 
 public class AdminMainMenuState implements IMenuState {
@@ -34,6 +35,7 @@ public class AdminMainMenuState implements IMenuState {
             case 2 -> new CreateItemMenuState(new AnimalData(), this);
             case 3 -> new UpdateItemMenuState(new AnimalData(), this);
             case 4 -> new DeleteItemMenuState(new AnimalData(), this);
+            case 5 -> new QueryItemMenuState(new ReportData(), this);
             case 0 -> new MainMenuState();
             default -> {
                 System.out.println("Essa não é uma opção válida, reiniciando menu!");

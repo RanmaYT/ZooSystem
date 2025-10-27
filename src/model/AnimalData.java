@@ -5,7 +5,8 @@ import controller.Input;
 
 public class AnimalData implements ItemData<Animal>{
     private static ArrayList<Animal> registedAnimals = new ArrayList<>();
-    private static final String itemName = "animal";
+    private static final String ITEM_NAME = "animal";
+    private static final String FILE_NAME = "animaisCadastrados.txt";
 
     @Override
     public ArrayList<Animal> getItensList() {
@@ -13,14 +14,14 @@ public class AnimalData implements ItemData<Animal>{
     }
 
     @Override
-    public void createItem(Input input){
+    public boolean createItem(Input input){
         // Definir as variáveis que serão criadas
         String popularName = "";
         String cientificName = "";
         String habitat = "";
         String locationInZoo = "";
 
-        // Coletar informações sobre o animais
+        // Coletar informações sobre o animais TODO: Podia fazer a mesma coisa de usar um map aqui igual no update
         while(popularName.isBlank()) {
             System.out.print("Nome popular: ");
             popularName = input.getAlphaInput();
@@ -48,6 +49,7 @@ public class AnimalData implements ItemData<Animal>{
         registerItem(animal);
 
         System.out.println("Animal cadastrado com sucesso\n");
+        return true;
     }
 
     @Override
@@ -108,11 +110,11 @@ public class AnimalData implements ItemData<Animal>{
 
     @Override
     public String getItemName(){
-        return itemName;
+        return ITEM_NAME;
     }
 
     @Override
-    public Animal getItemFromList(int index) {
+    public Animal getItemFromList(int index) throws IndexOutOfBoundsException {
         try { return registedAnimals.get(index); }
         catch(IndexOutOfBoundsException e) {
             System.out.println("Índice invalido");
