@@ -19,7 +19,7 @@ public class CreateItemMenuState implements IMenuState{
         String menuTitle = String.format("==================== MENU DE CRIAÇÃO DE %s ====================", itemData.getItemName().toUpperCase());
         System.out.println(menuTitle);
         System.out.println(String.format("           [1] Adicionar %s                                    ", itemData.getItemName()));
-        System.out.println("           [0] Voltar ao menu anterior                            ");
+        System.out.println("           [0] <- Voltar ao menu anterior                            ");
         System.out.print("           ---> ");
     }
 
@@ -35,8 +35,8 @@ public class CreateItemMenuState implements IMenuState{
             // Pergunta se o usuário quer continuar criando itens
             System.out.println(String.format("Deseja continuar adicionando %s: ", itemData.getItemName()));
             System.out.println("[1] Sim");
-            System.out.println("[0] Voltar ao menu anterior");
-            System.out.print("|| ");
+            System.out.println("[0] <- Voltar ao menu anterior");
+            System.out.print("---> ");
 
             userOption = input.getIntegerInput();
         }

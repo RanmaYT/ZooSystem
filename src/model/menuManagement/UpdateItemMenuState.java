@@ -53,7 +53,8 @@ public class UpdateItemMenuState implements IMenuState {
                 // Perguntar se o usuário quer continuar buscando animais ou não
                 System.out.println("Você deseja continuar atualizando itens: ");
                 System.out.println("[1] Sim");
-                System.out.println("[0] Voltar ao menu anterior");
+                System.out.println("[0] <- Voltar ao menu anterior");
+                System.out.print("---> ");
                 userOption = input.getIntegerInput();
             }
 

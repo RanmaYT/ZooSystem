@@ -94,6 +94,7 @@ public class AnimalData implements ItemData<Animal>{
 
         System.out.println("Mostrando informações sobre: " + animal.getPopularName());
         System.out.println(animal);
+        System.out.println("============================");
     }
 
     @Override

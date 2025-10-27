@@ -35,7 +35,7 @@ public class Animal implements IArchivable {
         }
 
         System.out.println("Digite os valores que você quer alterar separados por uma vírgula");
-        System.out.print("|| ");
+        System.out.print("---> ");
         String[] fieldsToChange = input.getStringInput().split(",");
 
         // Atualiza os campos pedidos

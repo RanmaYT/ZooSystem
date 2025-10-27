@@ -2,6 +2,7 @@ package model.menuManagement;
 
 import controller.Input;
 import model.AnimalData;
+import view.TextColor;
 
 public class AdminMainMenuState implements IMenuState {
     private Integer userOption;

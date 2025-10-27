@@ -45,11 +45,12 @@ public class DeleteItemMenuState implements IMenuState{
             userOption = input.getIntegerInput();
 
             // Verifica se a opção é o índice de um item
-            if(userOption >= 1 && userOption < itemData.getItensList().size()) {
+            if(userOption >= 1 && userOption <= itemData.getItensList().size()) {
                 itemIndex = userOption - 1;
 
                 deleteItem(itemIndex);
             }
+            nextMenuValue = userOption;
         }
     }
 
@@ -78,7 +79,7 @@ public class DeleteItemMenuState implements IMenuState{
         if(itemData.hasItem()) {
             System.out.println("================= Continuar deletando? ================ ");
             System.out.println("                  [1] Sim                               ");
-            System.out.println("                  [0] Voltar ao menu principal          ");
+            System.out.println("                  [0] <- Voltar ao menu principal          ");
             System.out.print("                  ---> ");
 
             Input input = new Input();

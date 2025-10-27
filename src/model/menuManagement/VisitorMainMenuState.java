@@ -14,7 +14,7 @@ public class VisitorMainMenuState implements IMenuState {
         System.out.println("                    Escolha uma opção:                      ");
         System.out.println("                  [1] Consultar animais");
         System.out.println("                  [2] Criar relato de erro");
-        System.out.println("                  [0] Voltar");
+        System.out.println("                  [0] <- Voltar");
         System.out.print("                 ---> ");
     }
 
