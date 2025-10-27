@@ -68,12 +68,12 @@ public class AnimalData implements ItemData<Animal>{
         // Pegar o animal que vai ser atualizado
         Animal animal = getItemFromList(itemIndex);
         System.out.println("Atualize os campos do animal:");
-        System.out.println("Obs: campos que não serão atualizados coloque um 0");
 
         // Delega o processo de atualização pro próprio objeto
-        animal.update(input);
+        boolean success = animal.update(input);
 
-        System.out.println("Atualização foi um sucesso!");
+        if(success) { System.out.println("Atualização foi um sucesso!"); }
+        else { System.out.println("A atualização falhou, nenhum campo foi atualizado!"); }
     }
 
     @Override
@@ -125,10 +125,9 @@ public class AnimalData implements ItemData<Animal>{
         return !registedAnimals.isEmpty();
     }
 
-    public boolean deleteAnimal(Animal animal) {
+    public void deleteAnimal(Animal animal) {
         if(animal == null) {
             System.out.println("Falha ao deletar animal");
-            return false;
         }
 
         // Deletar o animal da lista
@@ -137,6 +136,5 @@ public class AnimalData implements ItemData<Animal>{
         // Deletar animal do banco de dados
 
         System.out.println(animal.getPopularName() + " foi deletado com sucesso");
-        return true;
     }
 }

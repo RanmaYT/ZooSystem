@@ -11,15 +11,14 @@ public class Input {
         boolean hasOnlyLetters = false;
         String input = "";
 
-        while(!hasOnlyLetters) {
-            // Pegar o input
-            input = sc.nextLine();
+        // Pegar o input
+        input = sc.nextLine();
 
-            // Valida se é composto apenas por letras
-            hasOnlyLetters = input.matches("[a-zA-Zá-ú ]+");
-            if(!hasOnlyLetters) {
-                System.out.println("Esse campo aceita apenas letras");
-            }
+        // Valida se é composto apenas por letras
+        hasOnlyLetters = input.matches("[a-zA-Zá-ú ]+");
+        if(!hasOnlyLetters) {
+            System.out.println("Esse campo aceita apenas letras");
+            return "";
         }
         
         return input;

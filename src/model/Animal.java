@@ -19,7 +19,9 @@ public class Animal implements IArchivable {
         this.locationInZoo = locationInZoo;
     }
 
-    public void update(Input input){
+    public boolean update(Input input){
+        boolean atLeastOneUpdate = false;
+
         // Map dos campos e seu índice
         Map<Integer, String> fields = new LinkedHashMap<>();
 
@@ -51,8 +53,14 @@ public class Animal implements IArchivable {
                 }
 
                 // Pede o novo valor para do campo para o usuário
-                System.out.print("Novo valor para " + currentField.toLowerCase() + ": ");
-                String newValue = input.getAlphaInput();
+                String newValue = "";
+
+                while(newValue.isBlank()) {
+                    System.out.print("Novo valor para " + currentField.toLowerCase() + ": ");
+                    newValue = input.getAlphaInput();
+                }
+
+                atLeastOneUpdate = true;
 
                 // Atualiza o valor do campo atual
                 switch (currentField) {
@@ -80,6 +88,8 @@ public class Animal implements IArchivable {
                 System.out.println("Entrada inválida para atualização: " + fieldIndex);
             }
         }
+
+        return atLeastOneUpdate;
     }
 
     public String getHabitat() {
