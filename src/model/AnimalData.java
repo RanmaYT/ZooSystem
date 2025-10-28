@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 import controller.Input;
 
-public class AnimalData implements ItemData<Animal>{
+public class AnimalData extends ItemDataManager<Animal>{
     private static ArrayList<Animal> registedAnimals = new ArrayList<>();
     private static final String ITEM_NAME = "animal";
     private static final String FILE_NAME = "animaisCadastrados.txt";
 
     @Override
-    public ArrayList<Animal> getItensList() {
+    public ArrayList<Animal> getItemList() {
         return registedAnimals;
     }
 
@@ -45,24 +45,16 @@ public class AnimalData implements ItemData<Animal>{
         // Criar o objeto do novo animal
         Animal animal = new Animal(popularName, cientificName, habitat, locationInZoo);
 
+        if(registedAnimals.contains(animal)) {
+            System.out.println("Não é possível cadastrar o mesmo animal duas vezes");
+            return false;
+        }
+
         // Registra o animal
         registerItem(animal);
 
         System.out.println("Animal cadastrado com sucesso\n");
         return true;
-    }
-
-    @Override
-    public void loadItens(){
-        // TODO: Carregar os animais registrados quando iniciar a aplicação
-    }
-
-    @Override
-    public void registerItem(Animal animal){
-        // Registra o animal na lista
-        registedAnimals.add(animal);
-
-        // Registra o animal no banco de dados
     }
 
     @Override
@@ -76,13 +68,6 @@ public class AnimalData implements ItemData<Animal>{
 
         if(success) { System.out.println("Atualização foi um sucesso!"); }
         else { System.out.println("A atualização falhou, nenhum campo foi atualizado!"); }
-    }
-
-    @Override
-    public void deleteItem(int index) {
-        Animal animal = getItemFromList(index);
-
-        deleteAnimal(animal);
     }
 
     @Override
@@ -114,29 +99,7 @@ public class AnimalData implements ItemData<Animal>{
     }
 
     @Override
-    public Animal getItemFromList(int index) throws IndexOutOfBoundsException {
-        try { return registedAnimals.get(index); }
-        catch(IndexOutOfBoundsException e) {
-            System.out.println("Índice invalido");
-            return null;
-        }
-    }
-
-    @Override
-    public boolean hasItem(){
-        return !registedAnimals.isEmpty();
-    }
-
-    public void deleteAnimal(Animal animal) {
-        if(animal == null) {
-            System.out.println("Falha ao deletar animal");
-        }
-
-        // Deletar o animal da lista
-        registedAnimals.remove(animal);
-
-        // Deletar animal do banco de dados
-
-        System.out.println(animal.getPopularName() + " foi deletado com sucesso");
+    public String getFileName(){
+        return FILE_NAME;
     }
 }

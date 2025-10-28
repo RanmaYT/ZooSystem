@@ -12,7 +12,7 @@ public interface ItemData<T> {
     public void displayItemInfo(int itemIndex);
     public boolean createItem(Input input);
     public boolean hasItem();
-    public ArrayList<T> getItensList();
-    public T getItemFromList(int itemIndex) throws IndexOutOfBoundsException;
+    public ArrayList<T> getItemList();
+    public T getItemFromList(int itemIndex);
     public String getItemName();
 }

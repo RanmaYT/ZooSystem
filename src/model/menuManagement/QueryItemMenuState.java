@@ -2,12 +2,10 @@ package model.menuManagement;
 
 import controller.Input;
 import model.ItemData;
-import model.ReportData;
 
 public class QueryItemMenuState implements IMenuState{
     private Integer nextMenuValue;
     private Integer userOption;
-    private Integer itemIndex;
     private IMenuState lastMenu;
     private ItemData itemData;
 
@@ -45,8 +43,8 @@ public class QueryItemMenuState implements IMenuState{
             userOption = input.getIntegerInput();
 
             // Verifica se o input é o de um item
-            if(userOption > 0 && userOption <= itemData.getItensList().size()) {
-                itemIndex = userOption - 1;
+            if(userOption > 0 && userOption <= itemData.getItemList().size()) {
+                int itemIndex = userOption - 1;
 
                 // Mostra as informações sobre o item
                 itemData.displayItemInfo(itemIndex);
@@ -72,7 +70,6 @@ public class QueryItemMenuState implements IMenuState{
                 System.out.println("Valor inválido, reiniciando o menu!");
 
                 userOption = null;
-                itemIndex = null;
                 nextMenuValue = null;
 
                 yield null;

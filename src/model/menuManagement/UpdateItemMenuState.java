@@ -7,7 +7,6 @@ public class UpdateItemMenuState implements IMenuState {
     private IMenuState lastMenu;
     private ItemData itemData;
     private Integer userOption;
-    private Integer itemIndex;
     private Integer nextMenuValue;
 
     public UpdateItemMenuState(ItemData itemData, IMenuState lastMenu){
@@ -44,8 +43,8 @@ public class UpdateItemMenuState implements IMenuState {
             userOption = input.getIntegerInput();
 
             // Verifica se o input é o de um item
-            if(userOption > 0 && userOption <= itemData.getItensList().size()) {
-                itemIndex = userOption - 1;
+            if(userOption > 0 && userOption <= itemData.getItemList().size()) {
+                int itemIndex = userOption - 1;
 
                 // Atualiza as informações do usuário
                 itemData.updateItem(itemIndex, input);
@@ -71,7 +70,6 @@ public class UpdateItemMenuState implements IMenuState {
                 System.out.println("Valor inválido, reiniciando o menu!");
 
                 userOption = null;
-                itemIndex = null;
                 nextMenuValue = null;
 
                 yield null;

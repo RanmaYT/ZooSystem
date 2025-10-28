@@ -4,17 +4,12 @@ import controller.Input;
 
 import java.util.ArrayList;
 
-public class ReportData implements ItemData<Report>{
+public class ReportData extends ItemDataManager<Report>{
     private static ArrayList<Report> registedReports = new ArrayList<>();
     private static final String ITEM_NAME = "relatório";
     private static final String FILE_NAME = "relatoriosCadastrados.txt";
 
     private AnimalData animalData = new AnimalData();
-
-    @Override
-    public void loadItens() {
-
-    }
 
     @Override
     public void listAllItens() {
@@ -26,7 +21,7 @@ public class ReportData implements ItemData<Report>{
     @Override
     public boolean createItem(Input input) {
         if(!animalData.hasItem()) {
-            System.out.println("Não há animais cadastrados");
+            System.out.println("Não há animais cadastrados, impossível de fazer um relato");
             return false;
         }
 
@@ -77,51 +72,40 @@ public class ReportData implements ItemData<Report>{
     }
 
     @Override
-    public void registerItem(Report item) {
-        registedReports.add(item);
-    }
-
-    @Override
-    public void updateItem(int itemIndex, Input input){
-
-    }
-
-    @Override
-    public void deleteItem(int itemIndex) {
-
-    }
-
-    @Override
     public void displayItemInfo(int itemIndex) {
         // Pega o relatório naquele índice
         Report report = getItemFromList(itemIndex);
 
-        if(report == null) {
-            System.out.println("Falha ao mostra informações");
-        }
+        if(report == null) { System.out.println("Falha ao mostra informações"); }
 
         System.out.println("Mostrando informações sobre: " + report.getReportName());
         System.out.println(report);
         System.out.println("============================");
+
+        // TODO: Perguntar se ele quer deletar o relatório
+        Input input = new Input();
+        System.out.println("Você deseja deletar esse relatório?");
+        System.out.println("[1] Sim");
+        System.out.println("[0] Manter relatório");
+        int userOption = input.getIntegerInput();
+
+        if(userOption == 1) {
+            deleteItem(itemIndex);
+        }
     }
 
     @Override
-    public boolean hasItem() {
-        return !registedReports.isEmpty();
-    }
-
-    @Override
-    public ArrayList<Report> getItensList() {
+    public ArrayList<Report> getItemList() {
         return registedReports;
-    }
-
-    @Override
-    public Report getItemFromList(int itemIndex) throws IndexOutOfBoundsException {
-        return registedReports.get(itemIndex);
     }
 
     @Override
     public String getItemName() {
         return ITEM_NAME;
+    }
+
+    @Override
+    public String getFileName(){
+        return FILE_NAME;
     }
 }

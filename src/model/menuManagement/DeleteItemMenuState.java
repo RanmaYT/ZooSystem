@@ -7,7 +7,6 @@ public class DeleteItemMenuState implements IMenuState{
     private ItemData itemData;
     private IMenuState lastMenu;
     private Integer userOption;
-    private Integer itemIndex;
     private Integer nextMenuValue;
 
     public DeleteItemMenuState(ItemData itemData, IMenuState lastMenu) {
@@ -45,11 +44,12 @@ public class DeleteItemMenuState implements IMenuState{
             userOption = input.getIntegerInput();
 
             // Verifica se a opção é o índice de um item
-            if(userOption >= 1 && userOption <= itemData.getItensList().size()) {
-                itemIndex = userOption - 1;
+            if(userOption >= 1 && userOption <= itemData.getItemList().size()) {
+                int itemIndex = userOption - 1;
 
                 deleteItem(itemIndex);
             }
+
             nextMenuValue = userOption;
         }
     }
@@ -64,7 +64,6 @@ public class DeleteItemMenuState implements IMenuState{
 
                 // Resetar os campos
                 userOption = null;
-                itemIndex = null;
                 nextMenuValue = null;
 
                 yield null;

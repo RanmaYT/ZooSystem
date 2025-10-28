@@ -1,6 +1,6 @@
 package model;
 
-public class Report implements IArchivable {
+public class Report  {
     private String reportName;
     private String reportText;
     private Animal reportedAnimal;
@@ -15,8 +15,9 @@ public class Report implements IArchivable {
         return reportName;
     }
 
+
     @Override
     public String toString(){
-        return String.format("Nome do relatório: %s\nAnimal relatado:%s\nTexto do relatório: %s\n", reportName, reportedAnimal.getPopularName(), reportText);
+        return String.format("Nome do relatório: %s\nAnimal relatado: %s\nTexto do relatório: %s\n", reportName, reportedAnimal.getPopularName(), reportText);
     }
 }

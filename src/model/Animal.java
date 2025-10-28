@@ -125,6 +125,16 @@ public class Animal implements IArchivable {
     }
 
     @Override
+    public void loadItem(){
+
+    }
+
+    @Override
+    public String returnArchivableText() {
+        return String.format("'popularName': %s, 'cientificName': %s, 'habitat': %s, 'locationInZoo': %s", popularName, cientificName, habitat, locationInZoo);
+    }
+
+    @Override
     public String toString(){
         return String.format("Nome popular: %s\nNome científico: %s\nHabitat: %s\nLocalização do zoológico: %s", popularName, cientificName, habitat, locationInZoo);
     }
