@@ -2,6 +2,7 @@ package model.menuManagement;
 
 import controller.Input;
 import model.ItemData;
+import view.TextColor;
 
 public class QueryItemMenuState implements IMenuState{
     private Integer nextMenuValue;
@@ -19,19 +20,19 @@ public class QueryItemMenuState implements IMenuState{
         // O menu escrito vai depender se temos itens cadastrados ou não
         if(itemData.hasItem()) {
             // Escreve o menu normal
-            System.out.println(String.format("=============== Escolha um %s para consultar =================", itemData.getItemName()));
+            System.out.println(String.format( TextColor.BLACK_BOLD + "=============== Escolha um %s para consultar =================", itemData.getItemName()));
 
             // Lista todos os itens cadastrados
             itemData.listAllItens();
 
             // Opção pra voltar
-            System.out.println("[0] <- Voltar");
-            System.out.print("---> ");
+            System.out.println( TextColor.GREEN_BOLD + "[0] <- Voltar");
+            System.out.print( TextColor.BLACK_BOLD + "---> ");
 
         }
         else{
             // Fala que não tem itens cadastrados e retorna pro menu anterior
-            System.out.println(String.format("Não há %s cadastrados, voltando ao menu anterior", itemData.getItemName()));
+            System.out.println(String.format(TextColor.RED_BOLD + "Não há %s cadastrados, voltando ao menu anterior", itemData.getItemName()));
             nextMenuValue = 0;
         }
     }
@@ -50,10 +51,10 @@ public class QueryItemMenuState implements IMenuState{
                 itemData.displayItemInfo(itemIndex);
 
                 // Perguntar se o usuário quer continuar buscando animais ou não
-                System.out.println("Você deseja continuar buscando itens: ");
-                System.out.println("[1] Sim");
+                System.out.println(TextColor.BLACK_BOLD + "Você deseja continuar buscando itens: ");
+                System.out.println(TextColor.GREEN_BOLD + "[1] Sim");
                 System.out.println("[0] <- Voltar ao menu anterior");
-                System.out.print("---> ");
+                System.out.print(TextColor.BLACK_BOLD + "---> ");
                 userOption = input.getIntegerInput();
             }
 
@@ -67,7 +68,7 @@ public class QueryItemMenuState implements IMenuState{
             case 0 -> lastMenu;
             case 1 -> null;
             default -> {
-                System.out.println("Valor inválido, reiniciando o menu!");
+                System.out.println(TextColor.RED_BOLD + "Valor inválido, reiniciando o menu!");
 
                 userOption = null;
                 nextMenuValue = null;

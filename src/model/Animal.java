@@ -1,6 +1,7 @@
 package model;
 
 import controller.Input;
+import view.TextColor;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,19 +26,19 @@ public class Animal implements IArchivable {
         // Map dos campos e seu índice
         Map<Integer, String> fields = new LinkedHashMap<>();
 
-        fields.put(1, "Nome popular");
-        fields.put(2, "Nome científico");
-        fields.put(3, "Habitat");
-        fields.put(4, "Localização no zoológico");
+        fields.put(1, TextColor.BLACK_BOLD + "Nome popular");
+        fields.put(2, TextColor.BLACK_BOLD + "Nome científico");
+        fields.put(3, TextColor.BLACK_BOLD + "Habitat");
+        fields.put(4, TextColor.BLACK_BOLD + "Localização no zoológico");
 
         // Pede pro usuário escolher os campos que ele quer atualizar
         for(Map.Entry<Integer, String> entry : fields.entrySet()) {
             // Escreve todos os campos disponíveis
-            System.out.printf("[%d] %s%n", entry.getKey(), entry.getValue());
+            System.out.printf(TextColor.BLUE_BOLD + "[%d] %s%n", entry.getKey(), entry.getValue());
         }
 
-        System.out.println("Digite os valores que você quer alterar separados por uma vírgula");
-        System.out.print("---> ");
+        System.out.println(TextColor.BLUE_BOLD + "Digite os valores que você quer alterar separados por uma vírgula");
+        System.out.print(TextColor.BLACK_BOLD + "---> ");
         String[] fieldsToChange = input.getStringInput().split(",");
 
         // Atualiza os campos pedidos
@@ -48,7 +49,7 @@ public class Animal implements IArchivable {
                 String currentField = fields.get(fieldInteger);
 
                 if(currentField == null) {
-                    System.out.println("Opção inválida: " + fieldIndex);
+                    System.out.println(TextColor.RED_BOLD + "Opção inválida: " + fieldIndex);
                     continue;
                 }
 
@@ -56,7 +57,7 @@ public class Animal implements IArchivable {
                 String newValue = "";
 
                 while(newValue.isBlank()) {
-                    System.out.print("Novo valor para " + currentField.toLowerCase() + ": ");
+                    System.out.print(TextColor.BLACK_BOLD + "Novo valor para " + currentField.toLowerCase() + ": ");
                     newValue = input.getAlphaInput();
                 }
 
@@ -85,7 +86,7 @@ public class Animal implements IArchivable {
                 }
 
             } catch(NumberFormatException e) {
-                System.out.println("Entrada inválida para atualização: " + fieldIndex);
+                System.out.println(TextColor.RED_BOLD + "Entrada inválida para atualização: " + fieldIndex);
             }
         }
 
@@ -131,11 +132,11 @@ public class Animal implements IArchivable {
 
     @Override
     public String returnArchivableText() {
-        return String.format("'popularName': %s, 'cientificName': %s, 'habitat': %s, 'locationInZoo': %s", popularName, cientificName, habitat, locationInZoo);
+        return String.format(TextColor.BLACK_BOLD + "'popularName': %s, 'cientificName': %s, 'habitat': %s, 'locationInZoo': %s", popularName, cientificName, habitat, locationInZoo);
     }
 
     @Override
     public String toString(){
-        return String.format("Nome popular: %s\nNome científico: %s\nHabitat: %s\nLocalização do zoológico: %s", popularName, cientificName, habitat, locationInZoo);
+        return String.format(TextColor.BLACK_BOLD + "Nome popular: %s\nNome científico: %s\nHabitat: %s\nLocalização do zoológico: %s", popularName, cientificName, habitat, locationInZoo);
     }
 }

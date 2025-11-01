@@ -2,6 +2,7 @@ package model.menuManagement;
 
 import controller.Input;
 import model.Animal;
+import view.TextColor;
 
 public class ReportMenuState implements IMenuState{
     private Animal reportedAnimal;
@@ -16,7 +17,7 @@ public class ReportMenuState implements IMenuState{
 
     @Override
     public void writeMenu() {
-        System.out.println("VOCÊ ESTÁ FAZENDO UM RELATO SOBRE: " + reportedAnimal.getPopularName());
+        System.out.println( TextColor.BLUE_BOLD + "VOCÊ ESTÁ FAZENDO UM RELATO SOBRE: " + reportedAnimal.getPopularName());
         System.out.println("Obs: Digitando 0 você retornará para o menu de busca");
     }
 

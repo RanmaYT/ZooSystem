@@ -2,6 +2,7 @@ package model;
 
 import controller.Input;
 import service.Database;
+import view.TextColor;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public abstract class ItemDataManager<T> implements ItemData<T>{
         T item = getItemFromList(itemIndex);
 
         if(item == null) {
-            System.out.println("Falha ao deletar o item: item é nulo");
+            System.out.println( TextColor.RED_BOLD + "Falha ao deletar o item: item é nulo");
             return;
         }
 
@@ -23,7 +24,7 @@ public abstract class ItemDataManager<T> implements ItemData<T>{
         // Apaga ele do banco de dados
 
 
-        System.out.println("Deletado com sucesso!");
+        System.out.println( TextColor.GREEN_BOLD + "Deletado com sucesso!");
     }
 
     @Override
@@ -46,7 +47,7 @@ public abstract class ItemDataManager<T> implements ItemData<T>{
     public T getItemFromList(int itemIndex) {
         try { return getItemList().get(itemIndex); }
         catch(IndexOutOfBoundsException e) {
-            System.out.printf("Não foi possível acessar o %s, valor inválido\n", getItemName());
+            System.out.printf( TextColor.RED_BOLD + "Não foi possível acessar o %s, valor inválido\n", getItemName());
             return null;
         }
     }

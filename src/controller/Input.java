@@ -1,5 +1,7 @@
 package controller;
 
+import view.TextColor;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class Input {
         // Valida se é composto apenas por letras
         hasOnlyLetters = input.matches("[a-zA-Zá-ú ]+");
         if(!hasOnlyLetters) {
-            System.out.println("Esse campo aceita apenas letras");
+            System.out.println(TextColor.RED_BOLD + "Esse campo aceita apenas letras");
             return "";
         }
         
@@ -46,7 +48,7 @@ public class Input {
             } catch(InputMismatchException e) {
                 // Limpa o input em caso de erro, e printa uma mensagem
                 sc.nextLine();
-                System.out.println("Esse campo só aceita valores inteiros");
+                System.out.println(TextColor.RED_BOLD + "Esse campo só aceita valores inteiros");
 
                 // Retorna um valor inválido para os contextos
                 return -1;

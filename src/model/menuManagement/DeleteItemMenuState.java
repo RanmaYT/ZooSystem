@@ -2,6 +2,7 @@ package model.menuManagement;
 
 import controller.Input;
 import model.ItemData;
+import view.TextColor;
 
 public class DeleteItemMenuState implements IMenuState{
     private ItemData itemData;
@@ -19,20 +20,20 @@ public class DeleteItemMenuState implements IMenuState{
         // O menu escrito vai depender se temos itens cadastrados ou não
         if(itemData.hasItem()) {
             // Escreve o menu normal
-            System.out.println(String.format("=============== Escolha um %s para excluir =================", itemData.getItemName()));
-            System.out.println("                (Obs: essa ação é irreversível)                 ");
+            System.out.println(String.format( TextColor.BLACK_BOLD + "=============== Escolha um %s para excluir =================", itemData.getItemName()));
+            System.out.println(TextColor.RED_BOLD + "                (Obs: essa ação é irreversível)                 ");
 
             // Lista todos os itens cadastrados
             itemData.listAllItens();
 
             // Opção pra voltar
-            System.out.println("[0] <- Voltar");
-            System.out.print("---> ");
+            System.out.println( TextColor.GREEN_BOLD + "[0] <- Voltar");
+            System.out.print(TextColor.BLACK_BOLD + "---> ");
 
         }
         else{
             // Fala que não tem itens cadastrados e retorna pro menu anterior
-            System.out.println(String.format("Não há %s cadastrados, voltando ao menu anterior", itemData.getItemName()));
+            System.out.println(String.format(TextColor.RED_BOLD + "Não há %s cadastrados, voltando ao menu anterior", itemData.getItemName()));
             nextMenuValue = 0;
         }
     }
@@ -60,7 +61,7 @@ public class DeleteItemMenuState implements IMenuState{
             case 0 -> lastMenu;
             case 1 -> null;
             default -> {
-                System.out.println("Valor inválido, reiniciando o menu!");
+                System.out.println(TextColor.RED_BOLD + "Valor inválido, reiniciando o menu!");
 
                 // Resetar os campos
                 userOption = null;
@@ -76,10 +77,10 @@ public class DeleteItemMenuState implements IMenuState{
 
         // Perguntar se ele quer continuar deletando animais, caso haja algum
         if(itemData.hasItem()) {
-            System.out.println("================= Continuar deletando? ================ ");
-            System.out.println("                  [1] Sim                               ");
+            System.out.println( TextColor.BLACK_BOLD + "================= Continuar deletando? ================ ");
+            System.out.println( TextColor.GREEN_BOLD + "                  [1] Sim                               ");
             System.out.println("                  [0] <- Voltar ao menu principal          ");
-            System.out.print("                  ---> ");
+            System.out.print( TextColor.BLACK_BOLD + "                  ---> ");
 
             Input input = new Input();
             userOption = input.getIntegerInput();
@@ -87,7 +88,7 @@ public class DeleteItemMenuState implements IMenuState{
             nextMenuValue = userOption;
         }
         else {
-            System.out.println("Como o último item foi deletado, voltando ao menu principal");
+            System.out.println( TextColor.BLUE_BOLD + "Como o último item foi deletado, voltando ao menu principal");
             nextMenuValue = 0;
         }
     }

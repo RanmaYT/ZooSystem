@@ -11,15 +11,15 @@ public class AdminMainMenuState implements IMenuState {
 
     @Override
     public void writeMenu() {
-        System.out.println("================= BEM VINDO, ADMIN!! =================");
-        System.out.println("                  Escolha uma opção:                ");
+        System.out.println(TextColor.BLACK_BOLD + "================= BEM VINDO, ADMIN!! =================");
+        System.out.println(TextColor.GREEN_BOLD +  "                  Escolha uma opção:                ");
         System.out.println("                 [1] Consultar animal              ");
         System.out.println("                 [2] Adicionar animal              ");
         System.out.println("                 [3] Atualizar animal              ");
         System.out.println("                 [4] Excluir animal                ");
         System.out.println("                 [5] Verificar relatos                ");
         System.out.println("                 [0] <- Voltar                     ");
-        System.out.print("                 ---> ");
+        System.out.print( TextColor.BLACK_BOLD + "                 ---> ");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AdminMainMenuState implements IMenuState {
             case 5 -> new QueryItemMenuState(new ReportData(), this);
             case 0 -> new MainMenuState();
             default -> {
-                System.out.println("Essa não é uma opção válida, reiniciando menu!");
+                System.out.println(TextColor.RED_BOLD + "Essa não é uma opção válida, reiniciando menu!");
 
                 userOption = null;
                 nextMenuValue = null;
