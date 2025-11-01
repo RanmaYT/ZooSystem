@@ -5,7 +5,7 @@ import model.menuManagement.MainMenuState;
 import model.menuManagement.IMenuState;
 
 public class Menu {
-    private float secondsBeforeCleaning = 1f;
+    private float secondsBeforeCleaning = 0.85f;
     private IMenuState state;
     private Input inputUtil = new Input();
 

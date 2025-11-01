@@ -26,15 +26,15 @@ public class Animal implements IArchivable {
         // Map dos campos e seu índice
         Map<Integer, String> fields = new LinkedHashMap<>();
 
-        fields.put(1, TextColor.BLACK_BOLD + "Nome popular");
-        fields.put(2, TextColor.BLACK_BOLD + "Nome científico");
-        fields.put(3, TextColor.BLACK_BOLD + "Habitat");
-        fields.put(4, TextColor.BLACK_BOLD + "Localização no zoológico");
+        fields.put(1, "Nome popular");
+        fields.put(2, "Nome científico");
+        fields.put(3, "Habitat");
+        fields.put(4, "Localização no zoológico");
 
         // Pede pro usuário escolher os campos que ele quer atualizar
         for(Map.Entry<Integer, String> entry : fields.entrySet()) {
             // Escreve todos os campos disponíveis
-            System.out.printf(TextColor.BLUE_BOLD + "[%d] %s%n", entry.getKey(), entry.getValue());
+            System.out.printf(TextColor.BLUE_BOLD + "[%d]" +  TextColor.BLACK_BOLD + " %s%n", entry.getKey(), entry.getValue());
         }
 
         System.out.println(TextColor.BLUE_BOLD + "Digite os valores que você quer alterar separados por uma vírgula");
