@@ -22,24 +22,28 @@ public class AnimalData extends ItemDataManager<Animal>{
         String locationInZoo = "";
 
         // Coletar informações sobre o animais TODO: Podia fazer a mesma coisa de usar um map aqui igual no update
-        while(popularName.isBlank()) {
+        while(popularName.isEmpty()) {
             System.out.print("Nome popular: ");
             popularName = input.getAlphaInput();
+            popularName = popularName.trim();
         }
 
-        while(cientificName.isBlank()) {
+        while(cientificName.isEmpty()) {
             System.out.print("Nome científico: ");
             cientificName = input.getAlphaInput();
+            cientificName = cientificName.trim();
         }
 
-        while(habitat.isBlank()) {
+        while(habitat.isEmpty()) {
             System.out.print("Habitat: ");
             habitat = input.getAlphaInput();
+            habitat = habitat.trim();
         }
 
-        while(locationInZoo.isBlank()) {
+        while(locationInZoo.isEmpty()) {
             System.out.print("Localização no zoológico: ");
             locationInZoo = input.getAlphaInput();
+            locationInZoo = locationInZoo.trim();
         }
 
         // Criar o objeto do novo animal

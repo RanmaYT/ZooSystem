@@ -52,17 +52,17 @@ public class CreateItemMenuState implements IMenuState{
 
     @Override
     public IMenuState changeMenu() {
-        return switch(nextMenuValue) {
-            case 0 -> lastMenu;
-            default -> {
+        switch(nextMenuValue) {
+            case 0: { return lastMenu; }
+            default: {
                 System.out.println("Valor inválido, o menu será reiniciado");
 
                 // Reseta as variáveis
                 userOption = null;
                 nextMenuValue = null;
 
-                yield null;
+                return null;
             }
-        };
+        }
     }
 }

@@ -51,14 +51,16 @@ public class ReportData extends ItemDataManager<Report>{
             }
         }
 
-        while(reportName.isBlank()) {
+        while(reportName.isEmpty()) {
             System.out.print("Escolha um nome para o relato: ");
             reportName = input.getAlphaInput();
+            reportName = reportName.trim();
         }
 
-        while(reportText.isBlank()) {
+        while(reportText.isEmpty()) {
             System.out.println("Escreva o relato: ");
             reportText = input.getStringInput();
+            reportText = reportText.trim();
         }
 
         // Cria o objeto do relatório

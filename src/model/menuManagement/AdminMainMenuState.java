@@ -30,21 +30,21 @@ public class AdminMainMenuState implements IMenuState {
 
     @Override
     public IMenuState changeMenu() {
-        return switch (nextMenuValue) {
-            case 1 -> new QueryItemMenuState(new AnimalData(),this);
-            case 2 -> new CreateItemMenuState(new AnimalData(), this);
-            case 3 -> new UpdateItemMenuState(new AnimalData(), this);
-            case 4 -> new DeleteItemMenuState(new AnimalData(), this);
-            case 5 -> new QueryItemMenuState(new ReportData(), this);
-            case 0 -> new MainMenuState();
-            default -> {
+        switch (nextMenuValue) {
+            case 1: { return new QueryItemMenuState(new AnimalData(),this); }
+            case 2: { return new CreateItemMenuState(new AnimalData(), this); }
+            case 3: { return new UpdateItemMenuState(new AnimalData(), this); }
+            case 4: { return new DeleteItemMenuState(new AnimalData(), this); }
+            case 5: { return new QueryItemMenuState(new ReportData(), this); }
+            case 0: { return new MainMenuState(); }
+            default: {
                 System.out.println("Essa não é uma opção válida, reiniciando menu!");
 
                 userOption = null;
                 nextMenuValue = null;
 
-                yield null;
+                return null;
             }
-        };
+        }
     }
 }

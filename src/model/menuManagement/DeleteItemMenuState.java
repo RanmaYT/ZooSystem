@@ -56,19 +56,19 @@ public class DeleteItemMenuState implements IMenuState{
 
     @Override
     public IMenuState changeMenu() {
-        return switch (nextMenuValue) {
-            case 0 -> lastMenu;
-            case 1 -> null;
-            default -> {
+        switch (nextMenuValue) {
+            case 0: { return lastMenu; }
+            case 1: { return null; }
+            default: {
                 System.out.println("Valor inválido, reiniciando o menu!");
 
                 // Resetar os campos
                 userOption = null;
                 nextMenuValue = null;
 
-                yield null;
+                return null;
             }
-        };
+        }
     }
 
     public void deleteItem(int itemIndex){

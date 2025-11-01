@@ -26,18 +26,18 @@ public class VisitorMainMenuState implements IMenuState {
 
     @Override
     public IMenuState changeMenu() {
-        return switch (nextMenuValue) {
-            case 0 -> new MainMenuState();
-            case 1 -> new QueryItemMenuState(new AnimalData(), this);
-            case 2 -> new CreateItemMenuState(new ReportData(), this);
-            default -> {
+        switch (nextMenuValue) {
+            case 0: { return new MainMenuState(); }
+            case 1: { return new QueryItemMenuState(new AnimalData(), this); }
+            case 2: { return new CreateItemMenuState(new ReportData(), this); }
+            default: {
                 System.out.println("Escolha um valor válido, reiniciando o menu!");
 
                 userOption = null;
                 nextMenuValue = null;
 
-                yield null;
+                return null;
             }
-        };
+        }
     }
 }

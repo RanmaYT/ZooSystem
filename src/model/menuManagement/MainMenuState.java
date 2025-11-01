@@ -24,28 +24,30 @@ public class MainMenuState implements IMenuState {
     @Override
     public IMenuState changeMenu() {
         // Valida o input
-        return switch (nextMenuValue) {
-            case 1 ->
+        switch (nextMenuValue) {
+            case 1: {
                 // Visitante Main Menu
-                new VisitorMainMenuState();
-            case 2 ->
+                return new VisitorMainMenuState();
+            }
+            case 2: {
                 // Admin Main Menu
-                new AdminMainMenuState();
-            case 0 -> {
+                return new AdminMainMenuState();
+            }
+            case 0: {
                 // Fechando a aplicação
                 System.out.println("Saindo...");
                 System.exit(0);
-                yield null;
+                return null;
             }
-            default -> {
+            default: {
                 // Valores inválidos
                 System.out.println("Digite um valor válido");
 
                 userOption = null;
                 nextMenuValue = null;
 
-                yield null;
+                return null;
             }
-        };
+        }
     }
 }

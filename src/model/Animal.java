@@ -55,7 +55,7 @@ public class Animal implements IArchivable {
                 // Pede o novo valor para do campo para o usuário
                 String newValue = "";
 
-                while(newValue.isBlank()) {
+                while(newValue.isEmpty()) {
                     System.out.print("Novo valor para " + currentField.toLowerCase() + ": ");
                     newValue = input.getAlphaInput();
                 }
