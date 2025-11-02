@@ -20,14 +20,14 @@ public class QueryItemMenuState implements IMenuState{
         // O menu escrito vai depender se temos itens cadastrados ou não
         if(itemData.hasItem()) {
             // Escreve o menu normal
-            System.out.println(String.format( TextColor.BLACK_BOLD + "=============== Escolha um %s para consultar =================", itemData.getItemName()));
+            System.out.println(String.format( TextColor.WHITE_BOLD + "=============== Escolha um %s para consultar =================", itemData.getItemName()));
 
             // Lista todos os itens cadastrados
             itemData.listAllItens();
 
             // Opção pra voltar
             System.out.println( TextColor.GREEN_BOLD + "[0] <- Voltar");
-            System.out.print( TextColor.BLACK_BOLD + "---> ");
+            System.out.print( TextColor.WHITE_BOLD + "---> ");
 
         }
         else{
@@ -51,10 +51,10 @@ public class QueryItemMenuState implements IMenuState{
                 itemData.displayItemInfo(itemIndex);
 
                 // Perguntar se o usuário quer continuar buscando animais ou não
-                System.out.println(TextColor.BLACK_BOLD + "Você deseja continuar buscando itens: ");
+                System.out.println(TextColor.WHITE_BOLD + "Você deseja continuar buscando itens: ");
                 System.out.println(TextColor.GREEN_BOLD + "[1] Sim");
                 System.out.println("[0] <- Voltar ao menu anterior");
-                System.out.print(TextColor.BLACK_BOLD + "---> ");
+                System.out.print(TextColor.WHITE_BOLD + "---> ");
                 userOption = input.getIntegerInput();
             }
 

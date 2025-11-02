@@ -34,11 +34,11 @@ public class Animal implements IArchivable {
         // Pede pro usuário escolher os campos que ele quer atualizar
         for(Map.Entry<Integer, String> entry : fields.entrySet()) {
             // Escreve todos os campos disponíveis
-            System.out.printf(TextColor.BLUE_BOLD + "[%d]" +  TextColor.BLACK_BOLD + " %s%n", entry.getKey(), entry.getValue());
+            System.out.printf(TextColor.BLUE_BOLD + "[%d]" +  TextColor.WHITE_BOLD + " %s%n", entry.getKey(), entry.getValue());
         }
 
         System.out.println(TextColor.BLUE_BOLD + "Digite os valores que você quer alterar separados por uma vírgula");
-        System.out.print(TextColor.BLACK_BOLD + "---> ");
+        System.out.print(TextColor.WHITE_BOLD + "---> ");
         String[] fieldsToChange = input.getStringInput().split(",");
 
         // Atualiza os campos pedidos
@@ -57,7 +57,7 @@ public class Animal implements IArchivable {
                 String newValue = "";
 
                 while(newValue.isBlank()) {
-                    System.out.print(TextColor.BLACK_BOLD + "Novo valor para " + currentField.toLowerCase() + ": ");
+                    System.out.print(TextColor.WHITE_BOLD + "Novo valor para " + currentField.toLowerCase() + ": ");
                     newValue = input.getAlphaInput();
                 }
 
@@ -132,11 +132,11 @@ public class Animal implements IArchivable {
 
     @Override
     public String returnArchivableText() {
-        return String.format(TextColor.BLACK_BOLD + "'popularName': %s, 'cientificName': %s, 'habitat': %s, 'locationInZoo': %s", popularName, cientificName, habitat, locationInZoo);
+        return String.format(TextColor.WHITE_BOLD + "'popularName': %s, 'cientificName': %s, 'habitat': %s, 'locationInZoo': %s", popularName, cientificName, habitat, locationInZoo);
     }
 
     @Override
     public String toString(){
-        return String.format(TextColor.BLACK_BOLD + "Nome popular: %s\nNome científico: %s\nHabitat: %s\nLocalização do zoológico: %s", popularName, cientificName, habitat, locationInZoo);
+        return String.format(TextColor.WHITE_BOLD + "Nome popular: %s\nNome científico: %s\nHabitat: %s\nLocalização do zoológico: %s", popularName, cientificName, habitat, locationInZoo);
     }
 }

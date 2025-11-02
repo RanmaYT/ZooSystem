@@ -24,22 +24,22 @@ public class AnimalData extends ItemDataManager<Animal>{
 
         // Coletar informações sobre o animais TODO: Podia fazer a mesma coisa de usar um map aqui igual no update
         while(popularName.isBlank()) {
-            System.out.print(TextColor.BLACK_BOLD +  "Nome popular: ");
+            System.out.print(TextColor.WHITE_BOLD +  "Nome popular: ");
             popularName = input.getAlphaInput();
         }
 
         while(cientificName.isBlank()) {
-            System.out.print(TextColor.BLACK_BOLD +  "Nome científico: ");
+            System.out.print(TextColor.WHITE_BOLD +  "Nome científico: ");
             cientificName = input.getAlphaInput();
         }
 
         while(habitat.isBlank()) {
-            System.out.print(TextColor.BLACK_BOLD + "Habitat: ");
+            System.out.print(TextColor.WHITE_BOLD + "Habitat: ");
             habitat = input.getAlphaInput();
         }
 
         while(locationInZoo.isBlank()) {
-            System.out.print(TextColor.BLACK_BOLD + "Localização no zoológico: ");
+            System.out.print(TextColor.WHITE_BOLD + "Localização no zoológico: ");
             locationInZoo = input.getAlphaInput();
         }
 
@@ -62,7 +62,7 @@ public class AnimalData extends ItemDataManager<Animal>{
     public void updateItem(int itemIndex, Input input){
         // Pegar o animal que vai ser atualizado
         Animal animal = getItemFromList(itemIndex);
-        System.out.println( TextColor.BLACK_BOLD + "Atualize os campos do animal:");
+        System.out.println( TextColor.WHITE_BOLD + "Atualize os campos do animal:");
 
         // Delega o processo de atualização pro próprio objeto
         boolean success = animal.update(input);
@@ -80,7 +80,7 @@ public class AnimalData extends ItemDataManager<Animal>{
             System.out.println( TextColor.RED_BOLD + "Falha ao mostrar informações!");
         }
 
-        System.out.println( TextColor.BLACK_BOLD + "Mostrando informações sobre: " + animal.getPopularName());
+        System.out.println( TextColor.WHITE_BOLD + "Mostrando informações sobre: " + animal.getPopularName());
         System.out.println(animal);
         System.out.println("============================");
     }

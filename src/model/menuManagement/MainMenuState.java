@@ -9,11 +9,11 @@ public class MainMenuState implements IMenuState {
 
     @Override
     public void writeMenu(){
-        System.out.println(TextColor.BLACK_BOLD + "================== BEM VINDO, ESCOLHA COMO ENTRAR: ==================");
+        System.out.println(TextColor.WHITE_BOLD + "================== BEM VINDO, ESCOLHA COMO ENTRAR: ==================");
         System.out.println( TextColor.GREEN_BOLD + "                     [1] Visitante");
         System.out.println("                     [2] Administrador (requer senha)");
         System.out.println("                     [0] <- Sair");
-        System.out.print( TextColor.BLACK_BOLD + "                     ---> ");
+        System.out.print( TextColor.WHITE_BOLD + "                     ---> ");
     }
 
     @Override

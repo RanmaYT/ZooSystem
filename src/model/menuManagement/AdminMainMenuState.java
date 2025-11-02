@@ -11,7 +11,7 @@ public class AdminMainMenuState implements IMenuState {
 
     @Override
     public void writeMenu() {
-        System.out.println(TextColor.BLACK_BOLD + "================= BEM VINDO, ADMIN!! =================");
+        System.out.println(TextColor.WHITE_BOLD + "================= BEM VINDO, ADMIN!! =================");
         System.out.println(TextColor.GREEN_BOLD +  "                  Escolha uma opção:                ");
         System.out.println("                 [1] Consultar animal              ");
         System.out.println("                 [2] Adicionar animal              ");
@@ -19,7 +19,7 @@ public class AdminMainMenuState implements IMenuState {
         System.out.println("                 [4] Excluir animal                ");
         System.out.println("                 [5] Verificar relatos                ");
         System.out.println("                 [0] <- Voltar                     ");
-        System.out.print( TextColor.BLACK_BOLD + "                 ---> ");
+        System.out.print( TextColor.WHITE_BOLD + "                 ---> ");
     }
 
     @Override

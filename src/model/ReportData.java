@@ -15,7 +15,7 @@ public class ReportData extends ItemDataManager<Report>{
     @Override
     public void listAllItens() {
         for(int i = 0; i < registedReports.size(); i++) {
-            System.out.printf( TextColor.BLACK_BOLD + "[%d] %s%n", i+1, getItemFromList(i).getReportName());
+            System.out.printf( TextColor.GREEN_BOLD + "[%d] %s%n", i+1, getItemFromList(i).getReportName());
         }
     }
 
@@ -34,7 +34,7 @@ public class ReportData extends ItemDataManager<Report>{
         // Coletar as informações sobre o relatório
         while(reportedAnimal == null) {
             // Listar os animais
-            System.out.println( TextColor.BLACK_BOLD + "Escolha o animal que será reportado: ");
+            System.out.println( TextColor.WHITE_BOLD + "Escolha o animal que será reportado: ");
             animalData.listAllItens();
 
             // Opção de sair
@@ -58,7 +58,7 @@ public class ReportData extends ItemDataManager<Report>{
         }
 
         while(reportText.isBlank()) {
-            System.out.println( TextColor.BLACK_BOLD + "Escreva o relato: ");
+            System.out.println( TextColor.WHITE_BOLD + "Escreva o relato: ");
             reportText = input.getStringInput();
         }
 
@@ -85,10 +85,10 @@ public class ReportData extends ItemDataManager<Report>{
 
         // TODO: Perguntar se ele quer deletar o relatório
         Input input = new Input();
-        System.out.println( TextColor.BLACK_BOLD + "Você deseja deletar esse relatório?");
+        System.out.println( TextColor.WHITE_BOLD + "Você deseja deletar esse relatório?");
         System.out.println( TextColor.GREEN_BOLD + "[1] Sim");
         System.out.println("[0] Manter relatório");
-        System.out.print( TextColor.BLACK_BOLD + "---> ");
+        System.out.print( TextColor.WHITE_BOLD + "---> ");
         int userOption = input.getIntegerInput();
 
         if(userOption == 1) {

@@ -17,11 +17,11 @@ public class CreateItemMenuState implements IMenuState{
 
     @Override
     public void writeMenu() {
-        String menuTitle = String.format( TextColor.BLACK_BOLD + "==================== MENU DE CRIAÇÃO DE %s ====================", itemData.getItemName().toUpperCase());
+        String menuTitle = String.format( TextColor.WHITE_BOLD + "==================== MENU DE CRIAÇÃO DE %s ====================", itemData.getItemName().toUpperCase());
         System.out.println(menuTitle);
         System.out.println(String.format( TextColor.GREEN_BOLD + "           [1] Adicionar %s                                    ", itemData.getItemName()));
         System.out.println("           [0] <- Voltar ao menu anterior                            ");
-        System.out.print( TextColor.BLACK_BOLD + "           ---> ");
+        System.out.print( TextColor.WHITE_BOLD + "           ---> ");
     }
 
     @Override
@@ -34,16 +34,16 @@ public class CreateItemMenuState implements IMenuState{
             boolean createdItem = itemData.createItem(input);
 
             if(!createdItem) {
-                System.out.printf(TextColor.BLACK_BOLD + "Não é possível criar um %s, voltando ao menu anterior%n", itemData.getItemName());
+                System.out.printf(TextColor.WHITE_BOLD + "Não é possível criar um %s, voltando ao menu anterior%n", itemData.getItemName());
                 nextMenuValue = 0;
                 return;
             }
 
             // Pergunta se o usuário quer continuar criando itens
-            System.out.println(String.format(TextColor.BLACK_BOLD + "Deseja continuar adicionando %s: ", itemData.getItemName()));
+            System.out.println(String.format(TextColor.WHITE_BOLD + "Deseja continuar adicionando %s: ", itemData.getItemName()));
             System.out.println(TextColor.GREEN_BOLD + "[1] Sim");
             System.out.println("[0] <- Voltar ao menu anterior");
-            System.out.print(TextColor.BLACK_BOLD + "---> ");
+            System.out.print(TextColor.WHITE_BOLD + "---> ");
 
             userOption = input.getIntegerInput();
         }

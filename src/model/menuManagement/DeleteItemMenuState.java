@@ -20,7 +20,7 @@ public class DeleteItemMenuState implements IMenuState{
         // O menu escrito vai depender se temos itens cadastrados ou não
         if(itemData.hasItem()) {
             // Escreve o menu normal
-            System.out.println(String.format( TextColor.BLACK_BOLD + "=============== Escolha um %s para excluir =================", itemData.getItemName()));
+            System.out.println(String.format( TextColor.WHITE_BOLD + "=============== Escolha um %s para excluir =================", itemData.getItemName()));
             System.out.println(TextColor.RED_BOLD + "                (Obs: essa ação é irreversível)                 ");
 
             // Lista todos os itens cadastrados
@@ -28,7 +28,7 @@ public class DeleteItemMenuState implements IMenuState{
 
             // Opção pra voltar
             System.out.println( TextColor.GREEN_BOLD + "[0] <- Voltar");
-            System.out.print(TextColor.BLACK_BOLD + "---> ");
+            System.out.print(TextColor.WHITE_BOLD + "---> ");
 
         }
         else{
@@ -77,10 +77,10 @@ public class DeleteItemMenuState implements IMenuState{
 
         // Perguntar se ele quer continuar deletando animais, caso haja algum
         if(itemData.hasItem()) {
-            System.out.println( TextColor.BLACK_BOLD + "================= Continuar deletando? ================ ");
+            System.out.println( TextColor.WHITE_BOLD + "================= Continuar deletando? ================ ");
             System.out.println( TextColor.GREEN_BOLD + "                  [1] Sim                               ");
             System.out.println("                  [0] <- Voltar ao menu principal          ");
-            System.out.print( TextColor.BLACK_BOLD + "                  ---> ");
+            System.out.print( TextColor.WHITE_BOLD + "                  ---> ");
 
             Input input = new Input();
             userOption = input.getIntegerInput();

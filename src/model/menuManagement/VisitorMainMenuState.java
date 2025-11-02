@@ -11,12 +11,12 @@ public class VisitorMainMenuState implements IMenuState {
 
     @Override
     public void writeMenu(){
-        System.out.println(TextColor.BLACK_BOLD + "================= BEM VINDO, VISITANTE!! =================");
+        System.out.println(TextColor.WHITE_BOLD + "================= BEM VINDO, VISITANTE!! =================");
         System.out.println(TextColor.GREEN_BOLD + "                    Escolha uma opção:                      ");
         System.out.println("                  [1] Consultar animais");
         System.out.println("                  [2] Criar relato de erro");
         System.out.println("                  [0] <- Voltar");
-        System.out.print(TextColor.BLACK_BOLD + "                 ---> ");
+        System.out.print(TextColor.WHITE_BOLD + "                 ---> ");
     }
 
     @Override
