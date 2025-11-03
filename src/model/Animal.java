@@ -37,7 +37,7 @@ public class Animal implements IArchivable {
             System.out.printf(TextColor.BLUE_BOLD + "[%d]" +  TextColor.WHITE_BOLD + " %s%n", entry.getKey(), entry.getValue());
         }
 
-        System.out.println(TextColor.BLUE_BOLD + "Digite os valores que você quer alterar separados por uma vírgula");
+        System.out.println(TextColor.BLUE_BOLD + "Digite os valores NÚMERICOS que você quer alterar separados por uma vírgula");
         System.out.print(TextColor.WHITE_BOLD + "---> ");
         String[] fieldsToChange = input.getStringInput().split(",");
 
