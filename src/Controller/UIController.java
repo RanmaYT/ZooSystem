@@ -1,7 +1,11 @@
 package Controller;
 
+import DTOs.AnimalDTO;
 import Util.InputUtil;
 import View.View;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UIController {
     private AnimalController animalController;
@@ -29,7 +33,7 @@ public class UIController {
                 switch (opcao) {
                     case 1:
                         // Menu Visitante
-                        // menuVisitante();
+                        menuVisitante();
                         break;
                     case 2:
                         // Menu Administração
@@ -55,6 +59,10 @@ public class UIController {
         }
     }
 
+    public void menuVisitante(){
+
+    }
+
     public void menuAdministrador(){
         while(true) {
             try {
@@ -64,7 +72,7 @@ public class UIController {
 
                 switch (opcao) {
                     case 1:
-                        // Consultar animal
+                        menuConsultaAnimal();
                         break;
                     case 2:
                         // Cadastrar novo animal
@@ -87,6 +95,21 @@ public class UIController {
                         break;
                     case 4:
                         // Deletar animal
+                        view.mostrarMenuExclusaoAnimal();
+
+                        // Lista os animais e pega o índice do animal em relação a linha
+                        int idDelecao = menuColetaIndiceAnimais();
+
+                        if(idDelecao == 0) {
+                            return;
+                        }
+
+                        // Deleta aquele animal
+                        animalController.deletarAnimal(idDelecao);
+
+                        // Mensagem de confirmação
+                        view.mostrarMensagemDeSucesso("Animal deletado com sucesso!");
+
                         break;
                     case 5:
                         // Ver relatos
@@ -101,5 +124,59 @@ public class UIController {
                 view.mostrarErro(e.getMessage());
             }
         }
+    }
+
+    // Não tá nomeado da melhor maneira, e talvez esteja ferindo o SRP
+    public int menuColetaIndiceAnimais(){
+        while(true) {
+            // Mostra os animais cadastrados e salva a relação id-linha
+            Map<Integer, Integer> map = listarItens(animalController.pegarNomeAnimaisCadastrados());
+
+            // Pega o input do usuário
+            int linhaEscolhida = inputUtil.getIntInput("---> ", true);
+
+            if(linhaEscolhida == 0) {
+                return 0;
+            }
+
+            if (!map.containsKey(linhaEscolhida)) {
+                view.mostrarErro("Esse não é um índice válido!");
+                continue;
+            }
+
+            int idEscolhido = map.get(linhaEscolhida);
+
+            return idEscolhido;
+        }
+    }
+
+    public void menuConsultaAnimal() {
+        while(true) {
+            int idConsulta = menuColetaIndiceAnimais();
+
+            if(idConsulta == 0) {
+                return;
+            }
+
+            // Pega o DTO do animal
+            AnimalDTO animalDTO = animalController.getAnimalInfo(idConsulta);
+
+            // Mostra a informação do animal
+            view.mostrarAnimalInfo(animalDTO);
+        }
+    }
+
+    public Map<Integer, Integer> listarItens(Map<Integer, String> itensCadastrados){
+        Map<Integer, Integer> mapIdLinha = new HashMap<>();
+
+        int contador = 1;
+        for(Map.Entry<Integer, String> entry : itensCadastrados.entrySet()) {
+            mapIdLinha.put(contador, entry.getKey());
+            contador++;
+        }
+
+        view.mostrarItensCadastrados(itensCadastrados);
+
+        return mapIdLinha;
     }
 }

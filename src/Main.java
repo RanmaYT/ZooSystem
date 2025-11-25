@@ -10,8 +10,11 @@ public class Main {
         // Util
         InputUtil inputUtil = new InputUtil();
 
+        // Databases
+        AnimalDatabase animalDatabase = new AnimalDatabase();
+
         // Services
-        AnimalService animalService = new AnimalService();
+        AnimalService animalService = new AnimalService(animalDatabase);
 
         // Controllers
         AnimalController animalController = new AnimalController(animalService);
@@ -21,9 +24,6 @@ public class Main {
 
         UIController uiController = new UIController(animalController, inputUtil, view);
 
-        // Inicia a aplicação
-        AnimalDatabase animalDatabase = new AnimalDatabase();
-
-        // uiController.menuPrincipal();
+        uiController.menuPrincipal();
     }
 }
