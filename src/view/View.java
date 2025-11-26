@@ -1,6 +1,7 @@
 package View;
 
 import DTOs.AnimalDTO;
+import DTOs.RelatoDTO;
 import org.w3c.dom.Text;
 
 import java.util.HashMap;
@@ -54,6 +55,12 @@ public class View {
     public void mostrarAnimalInfo(AnimalDTO animalDTO) {
         System.out.println("=========================");
         System.out.print(animalDTO);
+        System.out.println("=========================");
+    }
+
+    public void mostrarRelatoInfo(RelatoDTO relatoDTO) {
+        System.out.println("=========================");
+        System.out.print(relatoDTO);
         System.out.println("=========================");
     }
 

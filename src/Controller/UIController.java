@@ -1,6 +1,7 @@
 package Controller;
 
 import DTOs.AnimalDTO;
+import DTOs.RelatoDTO;
 import Util.InputUtil;
 import View.View;
 
@@ -9,11 +10,13 @@ import java.util.Map;
 
 public class UIController {
     private AnimalController animalController;
+    private RelatoController relatoController;
     private InputUtil inputUtil;
     private View view;
 
-    public UIController(AnimalController animalController, InputUtil inputUtil, View view){
+    public UIController(AnimalController animalController, RelatoController relatoController, InputUtil inputUtil, View view){
         this.animalController = animalController;
+        this.relatoController = relatoController;
         this.inputUtil = inputUtil;
         this.view = view;
     }
@@ -98,7 +101,7 @@ public class UIController {
                         view.mostrarMenuExclusaoAnimal();
 
                         // Lista os animais e pega o índice do animal em relação a linha
-                        int idDelecao = menuColetaIndiceAnimais();
+                        int idDelecao = menuColetaIndice(animalController.pegarNomeAnimaisCadastrados());
 
                         if(idDelecao == 0) {
                             return;
@@ -113,6 +116,8 @@ public class UIController {
                         break;
                     case 5:
                         // Ver relatos
+                        menuConsultaRelatos();
+                        break;
                     case 0:
                         // Voltar
                         return;
@@ -127,10 +132,10 @@ public class UIController {
     }
 
     // Não tá nomeado da melhor maneira, e talvez esteja ferindo o SRP
-    public int menuColetaIndiceAnimais(){
+    public int menuColetaIndice(Map<Integer, String> map){
         while(true) {
             // Mostra os animais cadastrados e salva a relação id-linha
-            Map<Integer, Integer> map = listarItens(animalController.pegarNomeAnimaisCadastrados());
+            Map<Integer, Integer> mapIdLinha = listarItens(map);
 
             // Pega o input do usuário
             int linhaEscolhida = inputUtil.getIntInput("---> ", true);
@@ -139,12 +144,12 @@ public class UIController {
                 return 0;
             }
 
-            if (!map.containsKey(linhaEscolhida)) {
+            if (!mapIdLinha.containsKey(linhaEscolhida)) {
                 view.mostrarErro("Esse não é um índice válido!");
                 continue;
             }
 
-            int idEscolhido = map.get(linhaEscolhida);
+            int idEscolhido = mapIdLinha.get(linhaEscolhida);
 
             return idEscolhido;
         }
@@ -152,7 +157,7 @@ public class UIController {
 
     public void menuConsultaAnimal() {
         while(true) {
-            int idConsulta = menuColetaIndiceAnimais();
+            int idConsulta = menuColetaIndice(animalController.pegarNomeAnimaisCadastrados());
 
             if(idConsulta == 0) {
                 return;
@@ -163,6 +168,67 @@ public class UIController {
 
             // Mostra a informação do animal
             view.mostrarAnimalInfo(animalDTO);
+
+            // Perguntar se o usuário quer fazer relato
+            view.mostrarMensagem("Escolha uma opção: \n" +
+                    "[1] Continuar buscando\n" +
+                    "[2] Relatar erro\n" +
+                    "[0] Voltar ao menu principal");
+
+            int opcaoCriarRelato = inputUtil.getIntInput("--> ", false);
+
+            switch (opcaoCriarRelato) {
+                case 1:
+                    continue;
+                case 2:
+                    // Pega as informações sobre o relato
+
+                    String tituloRelato = inputUtil.getAlphaInput("Dê um título para o relato(até 30 caracteres): ", true);
+                    String textoRelato = inputUtil.getAlphaInput("Escreva o relato:\n", true);
+
+                    // Cria o relato
+                    relatoController.criarRelato(tituloRelato, textoRelato, idConsulta);
+                    break;
+                case 0:
+                    return;
+                default:
+                    view.mostrarErro("Valor inválido, voltando ao menu de consulta!");
+            }
+        }
+    }
+
+    public void menuConsultaRelatos(){
+        while(true) {
+            int idConsulta = menuColetaIndice(relatoController.pegarTitulosRelatosCadastrados());
+
+            if(idConsulta == 0) {
+                return;
+            }
+
+            RelatoDTO relatoDTO = relatoController.pegarRelato(idConsulta);
+
+            view.mostrarRelatoInfo(relatoDTO);
+
+            // Perguntar se ele gostaria de deletar esse relato
+            view.mostrarMensagem("Escolha uma opção: \n" +
+                    "[1] Continuar lendo relatos\n" +
+                    "[2] Deletar relato\n" +
+                    "[0] Voltar ao menu principal");
+
+            int opcaoCriarRelato = inputUtil.getIntInput("--> ", false);
+
+            switch (opcaoCriarRelato) {
+                case 1:
+                    continue;
+                case 2:
+                    relatoController.deletarRelato(idConsulta);
+                    view.mostrarMensagemDeSucesso("Relato deletado com sucesso!");
+                    return;
+                case 0:
+                    return;
+                default:
+                    view.mostrarErro("Valor inválido, voltando ao menu de consulta!");
+            }
         }
     }
 
