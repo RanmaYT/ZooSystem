@@ -2,10 +2,6 @@ package View;
 
 import DTOs.AnimalDTO;
 import DTOs.RelatoDTO;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class View {
@@ -21,7 +17,7 @@ public class View {
         System.out.println(TextColor.WHITE_BOLD + "================= BEM VINDO, VISITANTE!! =================");
         System.out.println(TextColor.GREEN_BOLD + "                    Escolha uma opção:                      ");
         System.out.println("                  [1] Consultar animais");
-        System.out.println("                  [0] <- Voltar");
+        System.out.println("                  [0] <- Voltar" + TextColor.ANSI_RESET);
     }
 
     public void mostrarMenuAdministrador(){
@@ -35,12 +31,16 @@ public class View {
         System.out.println("                 [0] <- Voltar                     " + TextColor.ANSI_RESET);
     }
 
+    public void mostrarMenuAdicaoAnimal(){
+        System.out.println("=== MENU CRIAÇÃO ANIMAL ===");
+    }
+
     public void mostrarMenuExclusaoAnimal(){
-        System.out.println("=================== MENU EXCLUSÃO DE ANIMAIS =================== ");
-        System.out.println(TextColor.RED_BOLD + "Obs: essa ação é irreversível!" + TextColor.ANSI_RESET);
+        System.out.println("=== MENU EXCLUSÃO DE ANIMAIS ===");
     }
 
     public void mostrarItensCadastrados(Map<Integer, String> itensCadastrados){
+        System.out.println("--------------------------");
         System.out.println("Escolha um dos índices: ");
         int contador = 1;
 
@@ -50,6 +50,7 @@ public class View {
         }
 
         System.out.println("[0] - Voltar");
+        System.out.println("--------------------------");
     }
 
     public void mostrarAnimalInfo(AnimalDTO animalDTO) {

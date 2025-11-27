@@ -30,7 +30,7 @@ public class UIController {
                 view.mostrarMenuPrincipal();
 
                 // Pede pro inputUtil coletar o input
-                int opcao = inputUtil.getIntInput("--->", false);
+                int opcao = inputUtil.getIntInput("---> ", false);
 
                 // Passa pro próximo menu de acordo com a entrada
                 switch (opcao) {
@@ -63,7 +63,27 @@ public class UIController {
     }
 
     public void menuVisitante(){
+        while(true) {
+            try{
+                view.mostrarMenuVisitante();
 
+                int opcao = inputUtil.getIntInput("---> ", false);
+
+                switch (opcao) {
+                    case 1:
+                        menuConsultaAnimal();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        view.mostrarErro("Insira um valor válido!");
+                        break;
+                }
+            }
+            catch (Exception e) {
+                view.mostrarErro(e.getMessage());
+            }
+        }
     }
 
     public void menuAdministrador(){
@@ -79,6 +99,7 @@ public class UIController {
                         break;
                     case 2:
                         // Cadastrar novo animal
+                        view.mostrarMenuAdicaoAnimal();
 
                         // Pega as informações
                         String nomePopular = inputUtil.getAlphaInput("Nome popular: ", true);
@@ -104,7 +125,7 @@ public class UIController {
                         int idDelecao = menuColetaIndice(animalController.pegarNomeAnimaisCadastrados());
 
                         if(idDelecao == 0) {
-                            return;
+                            continue;
                         }
 
                         // Deleta aquele animal
@@ -173,7 +194,8 @@ public class UIController {
             view.mostrarMensagem("Escolha uma opção: \n" +
                     "[1] Continuar buscando\n" +
                     "[2] Relatar erro\n" +
-                    "[0] Voltar ao menu principal");
+                    "[0] Voltar ao menu principal\n" +
+                    "======================");
 
             int opcaoCriarRelato = inputUtil.getIntInput("--> ", false);
 
