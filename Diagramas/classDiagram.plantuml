@@ -1,104 +1,199 @@
 @startuml Class Diagram
-' Sistema de Dados (Classes relacionadas ao tratamento de dados e banco de dados)
 
-class Database {
-    ' Essa classe vai ser um singleton
-
-    - Database instance
-
-    + static Database getInstance()
-}
-
-interface IArchivable {
-    + String getArchivableText()
-}
-
-' Sistema de Inputs (Classes responsáveis por coletar e tratar inputs do usuário)
-
-class Input {
-    - static Scanner sc
-
-    + static getIntegerInput()
-    + static getAlphabeticInput()
-}
-
-' Sistema Visual (Classes de estilização e escrita no console)
+' View
 class Menu {
-    + static int MenuLogin()
-    + static int AdminMainMenu()
-    + static int VisitorMainMenu()
+    - IMenuState currentMenuState
+    - float secondsBeforeCleaningMenu
+    - Input input
+
+    + void runMenu()
+    + void cleanMenu()
+    + void setState()
 }
 
 class TextColor {
-    + static final String red
-    + static final String blue
-    + static final String yellow
-    + static final String green
+    + static final String WHITE_BOLD
+    + static final String GREEN_BOLD
+    + static final String RED_BOLD
+    + static final String BLUE_BOLD
 }
 
-' Sistema de Objetos (Classes que irão ser instanciadas e guardadas como objetos)
-
-class Animal {
-    ' Eu posso tornar essa classe em uma classe abstrata e separar os bichos em classes
-    ' concretas sendo suas classes como "Mamifero", "Ave", "Repteis", etc... (Para aplicar o factory method)
-
-    - String nomePopular
-    - String nomeCientifico
-    - String habitat
-    - String localizacaoNoZoologico
-    - String alimentacao
-    - String classe
-    - enum estadoAtual
+' Controller
+class Input {
+    - Scanner sc
+    + String getAlphabeticInput()
+    + String getStringInput()
+    + Integer getIntegerInput()
 }
 
-class Report {
-    - Animal animalComErro
-    - List<int> camposComErro
+' Model
+package Model {
+    top to bottom direction
+    
+    interface IItemData<T> {
+    ' Implementação para cada tipo
+    + void createItem(Input input)
+    + void displayItemInfo(int itemIndex)
+    + void listAllItens()
+    + void updateItem(int itemIndex, Input input)
+    + String getItemName()
 
-    + void excluirRelato()
+    ' Implementação comum a todos
+    + T getItemFromList(int itemIndex)
+    + boolean hasItem()
+    + ArrayList<T> getItemList()
+    + void registerItem(T item) 
+    + void deleteItem(int itemIndex || T item)
+    + void loadItens()
+    }
+
+    class ItemDataManager {
+        ' Implementados  
+        + void deleteItem(int itemIndex)
+        + void registerItem(T item)
+        + boolean hasItem()
+        + getItemFromList(int itemIndex)
+
+        + abstract void listAllItens();
+        + abstract void displayItemInfo(int itemIndex);
+        + abstract boolean createItem(Input input);
+        + abstract ArrayList<T> getItemList();
+        + abstract String getItemName();
+    }
+
+    class AnimalData {
+        ' T = Animal
+        - ArrayList<Animal> registedAnimals
+        - static final String ITEM_NAME
+
+        + boolean createItem(Input input)
+        + ArrayList<Animal> getItemList
+        + void updateItem(int itemIndex, Input input)
+        + void listAllItens()
+        + void getItemName()
+    }
+
+    class ReportData {
+        ' T = Report
+        - ArrayList<Report> registedReports
+        - static final String ITEM_NAME
+
+            + boolean createItem(Input input)
+        + ArrayList<Report> getItemList
+        + void updateItem(int itemIndex, Input input)
+        + void listAllItens()
+        + void getItemName()
+    }
+
+    class Animal {
+        - String popularName
+        - String cientificName
+        - String habitat
+        - String locationInZoo
+
+        + boolean update()
+    }
+
+    class Report {
+        - String reportName
+        - String reportText
+        - Animal reportedAnimal
+    }
+
+    ' Menu Management 
+    package MenuManagement {
+        left to right direction
+        
+        interface IMenuState {
+        + void writeMenu()
+        + void doMenuOperations(Input input)
+        + IMenuState changeMenu()
+        }
+
+        class MainMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+        } 
+
+        class VisitorMainMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+        }
+
+        class AdminMainMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+        }
+
+        class QueryItemMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+            - IMenuState lastMenu
+            - IItemData itemData
+            
+            + QueryItemMenuState(IMenuState lastMenu, IItemData itemData)
+        }
+
+        class CreateItemMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+            - IMenuState lastMenu
+            - IItemData itemData
+
+            + CreateItemMenuState(IMenuState lastMenu, IItemData itemData)
+        }
+
+        class UpdateItemMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+            - IMenuState lastMenu
+            - IItemData itemData
+            
+            + UpdateItemMenuState(IMenuState lastMenu, IItemData itemData)
+        }
+
+        class DeleteItemMenuState {
+            - Integer userOption
+            - Integer nextMenuValue
+            - IMenuState lastMenu
+            - IItemData itemData
+
+            + DeleteItemMenuState(IMenuState lastMenu, IItemData itemData)
+        }
+    }
 }
 
-' Classes operacionais (Classes que vão fazer operações, utilizando dados como acessórios)
-' Talvez eu possa criar uma interface aqui pra abstrair ja que ambos se comportam parecido
-class AnimalData {
-    - ArrayList<Animal> allAnimals
+' Relacionamentos
 
-    + ArrayList<Animal> getAllAnimals()
-    + void salvarAnimal(Animal animal)
-    + void criarAnimal()
-    + void atualizarAnimal()
-    + void listarAnimais()
-    + void excluirAnimal(Animal animal)
-}
+' Associação
+TextColor -- Menu
+Input -- Menu
 
-class ReportData {
-    - ArrayList<Relatos> allRelatos
+' Implementação (Interfaces)
 
-    + ArrayList<Relato> getAllRelatos()
-    + void salvarRelato(Relato relato)
-    + void criarRelato()
-    + void listarRelatos()
-    + void excluirRelato(Relato relato)
-}
+IMenuState <|. MainMenuState
+IMenuState <|. VisitorMainMenuState
+IMenuState <|. AdminMainMenuState
+IMenuState <|.. QueryItemMenuState
+IMenuState <|.. CreateItemMenuState
+IMenuState <|.. UpdateItemMenuState
+IMenuState <|.. DeleteItemMenuState
 
-' Relacionamento entre as classes
-
-' Associações
-Database -- IArchivable
-Menu -- TextColor
-
-
-' Implementações
-IArchivable <|.. Animal
-IArchivable <|.. Relato
-
-' Composição (Uma parte não pode existir sem o todo)
-Relato *-- Animal
-
-' Agregação (Uma parte pode existir sem o todo)
-RelatoData o- Relato
-AnimalData o- Animal
+ItemDataManager ..|> IItemData
 
 ' Herança
+AnimalData --|> ItemDataManager : "T = Animal"
+ReportData --|> ItemDataManager : "T = Report"
+
+' Composição 
+Menu *- IMenuState
+
+AnimalData *- Animal
+ReportData *- Report
+
+IItemData -* QueryItemMenuState
+IItemData -* CreateItemMenuState
+IItemData -* UpdateItemMenuState
+IItemData -* DeleteItemMenuState
 
 @enduml
