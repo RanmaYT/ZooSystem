@@ -9,13 +9,24 @@ import java.util.Scanner;
 public class InputUtil {
     private Scanner sc = new Scanner(System.in);
 
+    public String getStringInput(String campoEntrada, boolean repetir){
+        do {
+            // Pegar o input
+            System.out.print(campoEntrada);
+            String input = sc.nextLine().trim();
+
+            // Retornar o input
+            return input;
+        } while(repetir);
+    }
+
     public String getAlphaInput(String campoEntrada, boolean repetir){
         do {
             boolean hasOnlyLetters = false;
 
             // Pegar o input
             System.out.print(campoEntrada);
-            String input = sc.nextLine();
+            String input = sc.nextLine().trim();
 
             // Valida se é composto apenas por letras
             hasOnlyLetters = input.matches("[a-zA-Zá-úÁ-ÚÇç ]+");

@@ -13,6 +13,56 @@ import java.util.Map;
 
 public class AnimalDatabase extends BaseDatabase<Animal>{
 
+    public boolean AnimalJaCadastrado(Animal animal){
+        // Valida se já há um animal com esse nome popular ou com o nome científico.
+        final String sql = "SELECT * FROM Animal WHERE animal_nome = ? OR animal_nomeCientifico = ?";
+
+        DataSource dataSource = criarDataSource();
+
+        try{
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, animal.getNomePopular());
+            preparedStatement.setString(2, animal.getNomeCientifico());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            // Se não houver resultados, retorna falso
+            if(!resultSet.isBeforeFirst()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar se o animal já está cadastrado");
+        }
+
+        return true;
+    }
+
+    public void atualizarAnimal(int idAnimal, Animal animal){
+        // Alerta: a parte de atualizar animal está gambiarrada, provavelmente deve ter uma forma melhor de fazer essa parte!
+        final String sql = "UPDATE Animal " +
+                "SET animal_nome = ?, animal_nomeCientifico = ?, animal_habitat = ?, animal_localNoZoo = ? " +
+                "WHERE animal_id = ?";
+
+        DataSource dataSource = criarDataSource();
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, animal.getNomePopular());
+            preparedStatement.setString(2, animal.getNomeCientifico());
+            preparedStatement.setString(3, animal.getHabitat());
+            preparedStatement.setString(4, animal.getLocalNoZoo());
+            preparedStatement.setInt(5, idAnimal);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Falha ao atualizar informações do animal no banco!");
+        }
+    }
+
     @Override
     public void cadastrarNovaEntidade(Animal animal) {
         final String sql = "INSERT INTO Animal(animal_nome, animal_nomeCientifico, animal_habitat, animal_LocalNoZoo)" +
@@ -31,7 +81,7 @@ public class AnimalDatabase extends BaseDatabase<Animal>{
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("FALHA AO SALVAR ANIMAL");
+            throw new RuntimeException("Falha ao salvar animal no banco");
         }
     }
 
@@ -59,7 +109,7 @@ public class AnimalDatabase extends BaseDatabase<Animal>{
             }
 
         } catch (SQLException e) {
-            System.out.println("Falha ao coletar nome dos animais");
+            throw new RuntimeException("Falha ao coletar nomes dos animais no banco");
         }
 
         return itensCadastrados;
@@ -95,7 +145,7 @@ public class AnimalDatabase extends BaseDatabase<Animal>{
                 animal = new Animal(nomePopular, nomeCientifico, habitat, localNoZoo);
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao pegar animal do banco de dados");
+            throw new RuntimeException("Falha ao pegar animal no banco");
         }
 
         return animal;
@@ -115,7 +165,7 @@ public class AnimalDatabase extends BaseDatabase<Animal>{
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Falha ao deletar a entidade");
+            throw new RuntimeException("Falha ao deletar animal no banco");
         }
     }
 }

@@ -35,6 +35,10 @@ public class View {
         System.out.println("=== MENU CRIAÇÃO ANIMAL ===");
     }
 
+    public void mostrarMenuAtualizacaoAnimal(){
+        System.out.println("=== MENU ATUALIZAÇÃO ANIMAL ===");
+    }
+
     public void mostrarMenuExclusaoAnimal(){
         System.out.println("=== MENU EXCLUSÃO DE ANIMAIS ===");
     }
@@ -53,16 +57,27 @@ public class View {
         System.out.println("--------------------------");
     }
 
+    public void mostrarCamposAtualizaveisAnimal(){
+        System.out.println("--------------------------------------");
+        System.out.println("Qual campo você quer atualizar: ");
+        System.out.println("[1] Nome Popular");
+        System.out.println("[2] Nome Científico");
+        System.out.println("[3] Habitat");
+        System.out.println("[4] Localização no zoológico");
+        System.out.println("--------------------------------------");
+    }
+
     public void mostrarAnimalInfo(AnimalDTO animalDTO) {
-        System.out.println("=========================");
+        System.out.println("--------------------------------------");
+        System.out.println("    Informações do animal listadas!   ");
         System.out.print(animalDTO);
-        System.out.println("=========================");
+        System.out.println("--------------------------------------");
     }
 
     public void mostrarRelatoInfo(RelatoDTO relatoDTO) {
-        System.out.println("=========================");
+        System.out.println("--------------------------");
         System.out.print(relatoDTO);
-        System.out.println("=========================");
+        System.out.println("--------------------------");
     }
 
     public void mostrarMensagem(String mensagem){

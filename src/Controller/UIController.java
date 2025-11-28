@@ -41,7 +41,12 @@ public class UIController {
                     case 2:
                         // Menu Administração
 
-                        // Admin vai fazer login
+                        // Admin vai fazer login (sistema bem simples)
+                        String senha = inputUtil.getStringInput("Digite a senha do sistema de administração: ", false);
+                        if(!senha.equals("Zoo1234!")) {
+                            view.mostrarErro("Senha inválida, voltando ao menu!");
+                            continue;
+                        }
 
                         // Entra no menu caso dê tudo certo com o login
                         menuAdministrador();
@@ -102,10 +107,10 @@ public class UIController {
                         view.mostrarMenuAdicaoAnimal();
 
                         // Pega as informações
-                        String nomePopular = inputUtil.getAlphaInput("Nome popular: ", true);
-                        String nomeCientifico = inputUtil.getAlphaInput("Nome científico: ", true);
-                        String habitat = inputUtil.getAlphaInput("Habitat: ", true);
-                        String localNoZoo = inputUtil.getAlphaInput("Localização no Zoológico: ", true);
+                        String nomePopular = inputUtil.getAlphaInput("Nome popular (máximo 100 caracteres): ", true);
+                        String nomeCientifico = inputUtil.getAlphaInput("Nome científico (máximo 100 caracteres): ", true);
+                        String habitat = inputUtil.getAlphaInput("Habitat (máximo 100 caracteres): ", true);
+                        String localNoZoo = inputUtil.getAlphaInput("Localização no Zoológico (máximo 100 caracteres): ", true);
 
                         // Passa as informações pro controller;
                         animalController.cadastrarNovoAnimal(nomePopular, nomeCientifico, habitat, localNoZoo);
@@ -116,6 +121,24 @@ public class UIController {
                         break;
                     case 3:
                         // Atualizar animal
+
+                        view.mostrarMenuAtualizacaoAnimal();
+
+                        int idAtualizacao = menuColetaIndice(animalController.pegarNomeAnimaisCadastrados());
+
+                        if(idAtualizacao == 0) {
+                            continue;
+                        }
+
+                        // Pergunta quais campos vão ser atualizados
+                        view.mostrarCamposAtualizaveisAnimal();
+
+                        int campo = inputUtil.getIntInput("Digite os índice dos campo que você quer alterar: ", false);
+                        String novoValor = inputUtil.getAlphaInput("Digite o novo valor: ", true);
+
+                        animalController.atualizarAnimal(idAtualizacao, campo, novoValor);
+                        view.mostrarMensagemDeSucesso("A atualização foi um sucesso!");
+
                         break;
                     case 4:
                         // Deletar animal
@@ -195,7 +218,7 @@ public class UIController {
                     "[1] Continuar buscando\n" +
                     "[2] Relatar erro\n" +
                     "[0] Voltar ao menu principal\n" +
-                    "======================");
+                    "===============================");
 
             int opcaoCriarRelato = inputUtil.getIntInput("--> ", false);
 
@@ -204,7 +227,6 @@ public class UIController {
                     continue;
                 case 2:
                     // Pega as informações sobre o relato
-
                     String tituloRelato = inputUtil.getAlphaInput("Dê um título para o relato(até 30 caracteres): ", true);
                     String textoRelato = inputUtil.getAlphaInput("Escreva o relato:\n", true);
 

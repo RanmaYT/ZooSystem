@@ -17,6 +17,10 @@ public class AnimalController {
         animalService.cadastrarAnimal(nome, nomeCientifico, habitat, localNoZoo);
     }
 
+    public void atualizarAnimal(int idAnimal, int indiceCampo, String novoValor){
+        animalService.atualizarAnimal(idAnimal, indiceCampo, novoValor);
+    }
+
     public void deletarAnimal(int idDelecao){
         animalService.deletarAnimal(idDelecao);
     }

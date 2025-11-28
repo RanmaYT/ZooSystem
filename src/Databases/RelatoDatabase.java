@@ -30,7 +30,7 @@ public class RelatoDatabase extends BaseDatabase<Relato>{
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("FALHA AO SALVAR RELATO");
+            throw new RuntimeException("Falha ao salvar relato no banco!");
         }
     }
 
@@ -58,7 +58,7 @@ public class RelatoDatabase extends BaseDatabase<Relato>{
             }
 
         } catch (SQLException e) {
-            System.out.println("Falha ao coletar títulos dos relatos");
+            throw new RuntimeException("Falha ao coletar títulos dos relatos no banco!");
         }
 
         return itensCadastrados;
@@ -81,7 +81,7 @@ public class RelatoDatabase extends BaseDatabase<Relato>{
             ResultSet resultado = preparedStatement.executeQuery();
 
             if(!resultado.isBeforeFirst()) {
-                throw new NenhumItemCadastradoException("Não há animais cadastrados!");
+                throw new NenhumItemCadastradoException("Não há relatos cadastrados!");
             }
 
             while(resultado.next()) {
@@ -92,7 +92,7 @@ public class RelatoDatabase extends BaseDatabase<Relato>{
                 relato = new Relato(tituloRelato, textoRelato, idAnimalRelatado);
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao pegar animal do banco de dados");
+            throw new RuntimeException("Falha ao pegar relato no banco!");
         }
 
         return relato;
@@ -112,7 +112,7 @@ public class RelatoDatabase extends BaseDatabase<Relato>{
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Falha ao deletar o relato");
+            throw new RuntimeException("Falha ao deletar relato no banco!");
         }
     }
 }
