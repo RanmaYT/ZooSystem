@@ -1,4 +1,4 @@
-@startuml UC
+@startuml Diagrama de Casos de Uso
 
     ' Atores (quem vai interagir com o sistema)
     actor "Visitante" as visitante
@@ -11,38 +11,34 @@
         usecase "Adicionar Animal" as UC3
         usecase "Atualizar Animal" as UC4
         usecase "Excluir Animal" as UC5
-        usecase "Verificar erros" as UC6
+        usecase "Verificar Relatos" as UC6
         usecase "Excluir relato de erro" as UC7
         usecase "Persistir dados" as UC8
     }
 
     
     ' Casos de uso do Visitante
-    visitante -- UC1 
+    visitante -down- UC1
     
     ' Casos de uso do Funcionário
-    funcionario -- UC1
-    funcionario -- UC3 
-    funcionario -- UC4 
-    funcionario -- UC5 
-    funcionario -- UC6
+    funcionario -down- UC1
+    funcionario -down- UC3
+    funcionario -down- UC4
+    funcionario -down- UC5
+    funcionario -down- UC6
 
     ' Relacionamentos entre Casos de Uso
     UC1 <.. UC2 : "<<extends>>"
-
-    UC6 <.. UC4 : "<<extends>>" 
-    note on link
-        Caso o relato esteja certo
-    end note
     
     UC6 <.. UC7 : "<<extends>>"
     note on link
-        Caso o relato esteja errado
+        Caso o relato não seja mais útil
     end note
     
     UC3 ..> UC8 : "<<includes>>"
     UC4 ..> UC8 : "<<includes>>"
     UC5 ..> UC8 : "<<includes>>"
+    UC2 ..> UC8 : "<<includes>>"
 
 
 @enduml

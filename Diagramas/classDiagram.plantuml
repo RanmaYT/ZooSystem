@@ -1,199 +1,218 @@
 @startuml Class Diagram
 
-' View
-class Menu {
-    - IMenuState currentMenuState
-    - float secondsBeforeCleaningMenu
-    - Input input
+left to right direction
 
-    + void runMenu()
-    + void cleanMenu()
-    + void setState()
+package Controller {
+    class AnimalController {
+        - AnimalService animalService
+
+        + void cadastrarNovoAnimal(String nome, String nomeCientifico, String habitat, String localNoZoo)
+        + void atualizarAnimal(int idAnimal, int indiceCampo, String novoValor)
+        + void deletarAnimal(int idDelecao)
+        + AnimalDTO getAnimalInfo(int idConsulta)
+        + Map<Integer, String> pegarNomeAnimaisCadastrados()
+    }
+
+    class RelatoController {
+        - RelatoService relatoService
+
+        + void criarRelato(String tituloRelato, String textoRelato, int animalRelatadoId)
+        + Map<Integer, String> pegarTitulosRelatosCadastrados()
+        + RelatoDTO pegarRelato(int idRelato)
+        + void deletarRelato(int idRelato)
+    }
+
+    class UIController {
+        - AnimalController animalController
+        - RelatoController relatoController
+        - InputUtil inputUtil
+        - View view
+
+        + void menuPrincipal()
+        + void menuVisitante()
+        + void menuAdministrador()
+        + void menuConsultaAnimal()
+        + void menuConsultaRelatos()
+        + int menuColetaIndice(Map<Integer, String> map)
+        + Map<Integer, Integer> listarItens(Map<Integer, String> itensCadastrados)
+    }
+
+
+
+    UIController *-down- AnimalController
+    UIController *-down- RelatoController
 }
 
-class TextColor {
-    + static final String WHITE_BOLD
-    + static final String GREEN_BOLD
-    + static final String RED_BOLD
-    + static final String BLUE_BOLD
+package Databases {
+    class AnimalDatabase {
+        + void atualizarAnimal(int idAnimal, Animal animal)
+        + void cadastrarNovoEntidade(Animal animal)
+        + boolean animalJaCadastrado(Animal animal)
+        + Map<Integer, String> getNomeItensCadastrados()
+        + Animal getEntidadeDoBanco(int idAnimal)
+        + void deletarDoBanco(int idAnimal)
+    }
+
+    abstract class BaseDatabase<T> {
+        - static final String url
+        - static final String user
+        - static final String password
+
+        # DataSource criarDataSource()
+        + abstract void cadastrarNovaEntidade(T entidade)
+        + abstract Map<Integer, String> getNomeItensCadastrados()
+        + abstract T getEntidadeDoBanco(int idEntidade)
+        + abstract void deletarDoBanco(int idEntidade)
+    }
+
+    class RelatoDatabase {
+        + void cadastrarNovaEntidade(Relato entidade)
+        + Map<Integer, String> getNomeItensCadastrados()
+        + Relato getEntidadeDoBanco(int idEntidade)
+        + void deletarDoBanco(int idEntidade)
+    }
+
+    BaseDatabase <|-down- AnimalDatabase : T = Animal
+    BaseDatabase <|-down- RelatoDatabase : T = Relato
 }
 
-' Controller
-class Input {
-    - Scanner sc
-    + String getAlphabeticInput()
-    + String getStringInput()
-    + Integer getIntegerInput()
+package DTOs {
+    class AnimalDTO {
+        - String nomePopular;
+        - String nomeCientifico;
+        - String habitat;
+        - String localNoZoo;
+
+        + String toString()
+    }
+
+    class RelatoDTO {
+        - String relatoTitulo;
+        - String relatoTexto;
+        - String nomeAnimalRelatado;
+
+        + String toString()
+    }
 }
 
-' Model
+package Exceptions {
+    exception AnimalInvalidoException {
+
+    }
+
+    exception InputInvalidoException {
+
+    }
+
+    exception NenhumItemCadastradoException {
+
+    }
+}
+
+package Mappers {
+    class AnimalMapper {
+        + static AnimalDTO converterParaDTO(Animal animal)
+    }
+
+    class RelatoMapper {
+        + static RelatoDTO converterParaDTO(Relato relato)
+    }
+
+
+
+}
+
+Mappers -- DTOs
+
 package Model {
-    top to bottom direction
-    
-    interface IItemData<T> {
-    ' Implementação para cada tipo
-    + void createItem(Input input)
-    + void displayItemInfo(int itemIndex)
-    + void listAllItens()
-    + void updateItem(int itemIndex, Input input)
-    + String getItemName()
+    package Services {
+        class AnimalService {
+            - AnimalDatabase animalDatabase
 
-    ' Implementação comum a todos
-    + T getItemFromList(int itemIndex)
-    + boolean hasItem()
-    + ArrayList<T> getItemList()
-    + void registerItem(T item) 
-    + void deleteItem(int itemIndex || T item)
-    + void loadItens()
-    }
+            + AnimalDTO getAnimalInfo(int idConsulta)
+            + Map<Integer, String> pegarNomeAnimaisCadastrados()
+            + void atualizarAnimal(int idAnimal, int idCampo, String novoValor)
+            + void cadastrarAnimal(String nomePopular, String nomeCientifico, String habitat, String localNoZoo)
+            + void deletarAnimal(int idAnimal)
+            + void validarAnimal(Animal animal, boolean pularVerificacaoNoBanco)
+        }
 
-    class ItemDataManager {
-        ' Implementados  
-        + void deleteItem(int itemIndex)
-        + void registerItem(T item)
-        + boolean hasItem()
-        + getItemFromList(int itemIndex)
+        class RelatoService {
+            - RelatoDatabase relatoDatabase
 
-        + abstract void listAllItens();
-        + abstract void displayItemInfo(int itemIndex);
-        + abstract boolean createItem(Input input);
-        + abstract ArrayList<T> getItemList();
-        + abstract String getItemName();
-    }
+            + void criarRelato(String tituloRelato, String textoRelato, int animalRelatadoId)
+            + Map<Integer, String> pegarNomeRelatosCadastrados()
+            + RelatoDTO pegarRelatoInfo(int relatoId)
+            + void deletarRelato(int idRelato)
+        }
 
-    class AnimalData {
-        ' T = Animal
-        - ArrayList<Animal> registedAnimals
-        - static final String ITEM_NAME
+        AnimalController *-down- AnimalService
+        RelatoController *-down- RelatoService
 
-        + boolean createItem(Input input)
-        + ArrayList<Animal> getItemList
-        + void updateItem(int itemIndex, Input input)
-        + void listAllItens()
-        + void getItemName()
-    }
-
-    class ReportData {
-        ' T = Report
-        - ArrayList<Report> registedReports
-        - static final String ITEM_NAME
-
-            + boolean createItem(Input input)
-        + ArrayList<Report> getItemList
-        + void updateItem(int itemIndex, Input input)
-        + void listAllItens()
-        + void getItemName()
+        AnimalService *-down- AnimalDatabase
+        RelatoService *-down- RelatoDatabase
     }
 
     class Animal {
-        - String popularName
-        - String cientificName
-        - String habitat
-        - String locationInZoo
-
-        + boolean update()
+        - String nomePopular;
+        - String nomeCientifico;
+        - String habitat;
+        - String localNoZoo;
     }
 
-    class Report {
-        - String reportName
-        - String reportText
-        - Animal reportedAnimal
+    class Relato {
+        - String tituloRelato;
+        - String textoRelato;
+        - int animalRelatadoId;
     }
 
-    ' Menu Management 
-    package MenuManagement {
-        left to right direction
-        
-        interface IMenuState {
-        + void writeMenu()
-        + void doMenuOperations(Input input)
-        + IMenuState changeMenu()
-        }
-
-        class MainMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-        } 
-
-        class VisitorMainMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-        }
-
-        class AdminMainMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-        }
-
-        class QueryItemMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-            - IMenuState lastMenu
-            - IItemData itemData
-            
-            + QueryItemMenuState(IMenuState lastMenu, IItemData itemData)
-        }
-
-        class CreateItemMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-            - IMenuState lastMenu
-            - IItemData itemData
-
-            + CreateItemMenuState(IMenuState lastMenu, IItemData itemData)
-        }
-
-        class UpdateItemMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-            - IMenuState lastMenu
-            - IItemData itemData
-            
-            + UpdateItemMenuState(IMenuState lastMenu, IItemData itemData)
-        }
-
-        class DeleteItemMenuState {
-            - Integer userOption
-            - Integer nextMenuValue
-            - IMenuState lastMenu
-            - IItemData itemData
-
-            + DeleteItemMenuState(IMenuState lastMenu, IItemData itemData)
-        }
-    }
+    Animal -down- AnimalService
+    Relato -down- RelatoService
 }
 
-' Relacionamentos
+package Util {
+    class InputUtil {
+        - Scanner sc
 
-' Associação
-TextColor -- Menu
-Input -- Menu
+        + String getStringInput(String campoEntrada, boolean repetir)
+        + String getAlphaInput(String campoEntrada, boolean repetir)
+        + int getIntInput(String campoEntrada, boolean repetir)
+    }
 
-' Implementação (Interfaces)
+    InputUtil -right-* UIController
+}
 
-IMenuState <|. MainMenuState
-IMenuState <|. VisitorMainMenuState
-IMenuState <|. AdminMainMenuState
-IMenuState <|.. QueryItemMenuState
-IMenuState <|.. CreateItemMenuState
-IMenuState <|.. UpdateItemMenuState
-IMenuState <|.. DeleteItemMenuState
+package View {
+    class TextColor {
+        + static final String ANSI_RESET
+        + static final String WHITE_BOLD
+        + static final String RED_BOLD
+        + static final String GREEN_BOLD
+        + static final String BLUE_BOLD
+    }
 
-ItemDataManager ..|> IItemData
+    class View {
+        + void mostrarMenuPrincipal()
+        + void mostrarMenuVisitante()
+        + void mostrarMenuAdministrador()
+        + void mostrarMenuAdicaoAnimal()
+        + void mostrarMenuAtualizacaoAnimal()
+        + void mostrarMenuExclusaoAnimal()
+        + void mostrarItensCadastrados(Map<Integer, String> itensCadastrados)
+        + void mostrarCamposAtualizaveisAnimal()
+        + void mostrarAnimalInfo(AnimalDTO animalDTO)
+        + void mostrarRelatoInfo(RelatoDTO relatoDTO)
+        + void mostrarMensagem(String mensagem)
+        + void mostrarMensagemDeSucesso(String mensagem)
+        + void mostrarErro(String erro)
+    }
 
-' Herança
-AnimalData --|> ItemDataManager : "T = Animal"
-ReportData --|> ItemDataManager : "T = Report"
+    TextColor -left- View
+    View --* UIController
 
-' Composição 
-Menu *- IMenuState
 
-AnimalData *- Animal
-ReportData *- Report
+}
 
-IItemData -* QueryItemMenuState
-IItemData -* CreateItemMenuState
-IItemData -* UpdateItemMenuState
-IItemData -* DeleteItemMenuState
+View -up- DTOs
 
 @enduml
