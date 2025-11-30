@@ -42,7 +42,7 @@ Toda a documentação oficial do projeto está centralizada no Notion, garantind
 🔗 [Acesse aqui a documentação completa no Notion.](https://www.notion.so/Animal-Watch-27d0b3a5dbc780ea8d02c47c7caa1beb?source=copy_link)
 
 
-## Tecnoligias Utilizadas :books:
+## Tecnologias Utilizadas :books:
 #### Persistência de dados:
 - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.1--1-316192?logo=postgresql&logoColor=white&labelColor=316192)
 - ![JDBC](https://img.shields.io/badge/JDBC-42.7.8-316192?logo=postgresql&logoColor=white&labelColor=316192)
@@ -58,3 +58,4 @@ Toda a documentação oficial do projeto está centralizada no Notion, garantind
 - ![GitHub](https://img.shields.io/badge/GitHub-000000?logo=github&logoColor=white&labelColor=000000)
 
 > Status do Projeto: Em desenvolvimento :white_check_mark:
+
