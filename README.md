@@ -36,6 +36,28 @@ A view é responsável exclusivamente pela exibição das informações na inter
 A função principal do controller é atuar como intermediário entre a view e o model. Ele recebe as informações após sua exibição pela view e as repassa ao model.
 
 
+## Como Executar :question:
+#### Obs: Consideramos que todas as tecnologias utilizadas no projeto já estejam baixadas nas versões corretas.
+1.  Clone o repositório: git clone <https://github.com/RanmaYT/ZooSystem.git>
+2.  No Postgres, crie um banco de dados e nele crie as 2 tabelas usando esses comandos:
+    - CREATE TABLE Animal(
+	animal_id SERIAL PRIMARY KEY
+	animal_nome varchar(100) UNIQUE NOT NULL
+	animal_nomeCientifico varchar(100) UNIQUE NOT NULL
+	animal_habitat varchar(100) NOT NULL
+	animal_localNoZoo varchar(100) NOT NULL
+)
+    -  CREATE TABLE Relato(
+	relato_id SERIAL PRIMARY KEY
+	relato_titulo varchar(30) NOT NULL
+	relato_titulo text NOT NULL
+	relato_animalRelatado integer REFERENCES Animal (animal_id)
+)
+
+#### Ligando o Script ao banco de dados
+1. Vá para Database/BaseDatabase.java e altere os campos url, senha e usuário para os que você cadastrou.
+
+
 ## Documentação Oficial :page_with_curl:
 Toda a documentação oficial do projeto está centralizada no Notion, garantindo organização, fácil acesso e atualização contínua das informações.
 
@@ -57,5 +79,6 @@ Toda a documentação oficial do projeto está centralizada no Notion, garantind
 - ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
 - ![GitHub](https://img.shields.io/badge/GitHub-000000?logo=github&logoColor=white&labelColor=000000)
 
-> Status do Projeto: Em desenvolvimento :white_check_mark:
+> Status do Projeto: Concluído :white_check_mark:
+
 
